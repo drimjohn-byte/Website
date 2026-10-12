@@ -1,0 +1,30 @@
+---
+import { site } from "../config/site";
+interface Props { descriptor?: boolean; size?: "sm" | "lg" }
+const { descriptor = false, size = "sm" } = Astro.props;
+---
+<span class:list={["wordmark", `wordmark--${size}`]}>
+  <span class="wordmark__name">{site.name}</span>
+  {descriptor && <span class="wordmark__descriptor">{site.descriptor}</span>}
+</span>
+
+<style>
+  .wordmark { display: inline-flex; flex-direction: column; gap: 0.5em; line-height: 1; }
+  .wordmark__name {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wordmark);
+    /* Cancel trailing tracking so the mark stays optically centred */
+    margin-right: calc(-1 * var(--tracking-wordmark));
+  }
+  .wordmark--sm .wordmark__name { font-size: 0.9375rem; }
+  .wordmark--lg .wordmark__name { font-size: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .wordmark__descriptor {
+    font-size: 0.5625rem;
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .wordmark--lg .wordmark__descriptor { font-size: 0.6875rem; }
+</style>

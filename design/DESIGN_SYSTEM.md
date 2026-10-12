@@ -5,7 +5,7 @@ Premium property marketing for agents and developers on the South African West C
 **Site goals, in order:** build trust, then generate qualified leads.
 **Feel:** a luxury property journal meets a high-end creative studio. Quiet confidence, not loud promotion.
 
-Tokens live in [`tokens.css`](./tokens.css). This document explains how to use them.
+Tokens live in [`src/styles/tokens.css`](../src/styles/tokens.css). This document explains how to use them.
 
 ---
 
@@ -148,9 +148,9 @@ A 4px base, using only these tokens: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
 22. **CTA band**: a full-width ink or Atlantic section with a headline and `LET'S TALK`. It closes every page.
 
 ### Lead capture
-23. **Enquiry form**: name, email, phone, "I am an" (Agent / Agency principal / Developer / Other), services of interest (multi-select chips), area, message and an optional budget band. Inline validation, an accessible error summary, and a POPIA consent line.
+23. **Enquiry form**: name, company, "I am" (Estate agent / Agency principal / Developer / Other), services of interest (multi-select chips), area and message, plus a POPIA consent line. Inline validation and an accessible error summary. On submit it opens WhatsApp Business with the answers pre-filled, so no server or CRM is needed.
 24. **Chip / toggle group**: for service selection in the form.
-25. **WhatsApp contact link**: a discreet secondary contact route in the header and footer. It does not float over the content.
+25. **WhatsApp contact link**: a direct link in the contact section and footer. It does not float over the content.
 26. **Success state**: an on-brand confirmation that says what happens next and when.
 
 ### Utility
@@ -158,7 +158,8 @@ A 4px base, using only these tokens: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
 28. **SEO and meta**: Open Graph image template (monogram, headline, photo) and `LocalBusiness` structured data with the areas served.
 
 ### Page map (proposed)
-Home · Work (index and case studies) · Services · About · Journal (can come later) · Contact
+Phase 1 (built): a single home page with Services, Work, Approach, Areas and Contact sections.
+Phase 2: Work index and case study pages, an About page and a Journal, once real projects and photography exist.
 
 ---
 

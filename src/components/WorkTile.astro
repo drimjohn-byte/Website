@@ -1,0 +1,28 @@
+---
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+interface Props { title: string; location: string; services: string; image: string; size: "large" | "small"; href?: string }
+const { title, location, services, image, size, href } = Astro.props;
+const Tag = href ? "a" : "article";
+---
+<Tag href={href} class:list={["tile", `tile--${size}`]} data-reveal>
+  <ImagePlaceholder ratio={size === "large" ? "3/2" : "4/5"} tone="ink" brief={image} />
+  <div class="tile__meta">
+    <h3 class="h3">{title}</h3>
+    <p class="label muted">{location} &middot; {services}</p>
+  </div>
+</Tag>
+
+<style>
+  .tile { display: grid; gap: var(--space-4); align-content: start; align-self: start; text-decoration: none; grid-column: 1 / -1; }
+  .tile__meta { display: grid; gap: var(--space-2); }
+  a.tile:hover .h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  @media (min-width: 768px) {
+    .tile--large { grid-column: span 4; }
+    .tile--small { grid-column: span 2; }
+  }
+  @media (min-width: 1024px) {
+    .tile--large { grid-column: span 7; }
+    .tile--small { grid-column: span 4; margin-top: var(--space-10); }
+    .tile--small:nth-child(odd) { grid-column: 2 / span 4; margin-top: 0; }
+  }
+</style>

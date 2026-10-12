@@ -1,0 +1,116 @@
+---
+import Wordmark from "./Wordmark.astro";
+import Button from "./Button.astro";
+import { nav } from "../config/site";
+---
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a href="/" class="header__brand" aria-label="WESTWARD home"><Wordmark /></a>
+
+    <nav class="header__nav" aria-label="Main">
+      <ul>
+        {nav.map((item) => <li><a href={item.href} class="label">{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="header__cta"><Button href="/#contact">Let&rsquo;s talk</Button></div>
+
+    <button class="header__toggle label" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span data-menu-label>Menu</span>
+    </button>
+  </div>
+
+  <div class="menu theme-ink" id="menu" hidden data-menu>
+    <nav class="container menu__inner" aria-label="Mobile">
+      <ul>
+        {nav.map((item) => <li><a href={item.href} class="menu__link" data-menu-link>{item.label}</a></li>)}
+      </ul>
+      <Button href="/#contact" data-menu-link>Let&rsquo;s talk</Button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    color: var(--ww-salt-white);
+    --color-cta-bg: var(--ww-salt-white);
+    --color-cta-text: var(--ww-deep-ink);
+    --color-focus: var(--ww-warm-sand);
+    transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease),
+      border-color var(--duration-base) var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .header.is-solid {
+    background: var(--ww-salt-white);
+    color: var(--ww-deep-ink);
+    border-bottom-color: var(--ww-line-light);
+    --color-cta-bg: var(--ww-deep-ink);
+    --color-cta-text: var(--ww-salt-white);
+    --color-focus: var(--ww-atlantic);
+  }
+  .header.is-open { background: var(--ww-deep-ink); color: var(--ww-salt-white); border-bottom-color: transparent; }
+
+  .header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); min-height: 4.5rem; }
+  .header__brand { text-decoration: none; position: relative; z-index: 2; }
+
+  .header__nav { display: none; }
+  .header__nav ul { display: flex; gap: var(--space-6); list-style: none; padding: 0; }
+  .header__nav a { text-decoration: none; padding-block: var(--space-2); background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0 1px; transition: background-size var(--duration-base) var(--ease); }
+  .header__nav a:hover { background-size: 100% 1px; }
+  .header__cta { display: none; }
+  .header__cta :global(.btn) { min-height: 2.75rem; padding-inline: var(--space-5); }
+
+  .header__toggle { background: none; border: 0; padding: var(--space-3) 0; position: relative; z-index: 2; }
+
+  @media (min-width: 1024px) {
+    .header__nav, .header__cta { display: block; }
+    .header__nav { margin-left: auto; }
+    .header__toggle { display: none; }
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    padding-top: 6rem;
+    overflow-y: auto;
+  }
+  .menu__inner { display: flex; flex-direction: column; gap: var(--space-7); padding-bottom: var(--space-8); }
+  .menu ul { list-style: none; padding: 0; display: grid; gap: var(--space-3); }
+  .menu__link { font-family: var(--font-display); font-size: clamp(2.25rem, 8vw, 3.5rem); line-height: 1.15; text-decoration: none; }
+  .menu :global(.btn) { align-self: flex-start; }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]")!;
+  const toggle = header.querySelector<HTMLButtonElement>("[data-menu-toggle]")!;
+  const label = header.querySelector<HTMLElement>("[data-menu-label]")!;
+  const menu = header.querySelector<HTMLElement>("[data-menu]")!;
+  // Pages without a dark hero start with a solid header.
+  const alwaysSolid = document.body.dataset.header === "solid";
+
+  const setSolid = () => header.classList.toggle("is-solid", alwaysSolid || window.scrollY > 40);
+  setSolid();
+  window.addEventListener("scroll", setSolid, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    menu.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    label.textContent = open ? "Close" : "Menu";
+    header.classList.toggle("is-open", open);
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  };
+
+  toggle.addEventListener("click", () => setOpen(menu.hidden));
+  menu.querySelectorAll("[data-menu-link]").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => e.matches && setOpen(false));
+</script>

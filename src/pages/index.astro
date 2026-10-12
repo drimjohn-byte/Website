@@ -1,0 +1,180 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import ServiceRow from "../components/ServiceRow.astro";
+import WorkTile from "../components/WorkTile.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import EnquiryForm from "../components/EnquiryForm.astro";
+import ImagePlaceholder from "../components/ImagePlaceholder.astro";
+import { site, towns, audiences, services, process } from "../config/site";
+
+// TODO: replace with real projects. Each tile needs photography, a project name and the services delivered.
+const work = [
+  { title: "Project name", location: "Langebaan", services: "Property Marketing", size: "large", image: "Hero image of a featured listing: modern coastal residence, wide, golden hour" },
+  { title: "Project name", location: "Paternoster", services: "Brand Strategy", size: "small", image: "Brand application on site: signage or brochure against natural stone" },
+  { title: "Project name", location: "Velddrif", services: "Content Creation", size: "small", image: "Interior detail: light across textured plaster" },
+  { title: "Project name", location: "Yzerfontein", services: "Digital Advertising", size: "large", image: "Development launch: elevated view of the site and coastline, overcast" },
+] as const;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  description: site.description,
+  areaServed: towns.map((name) => ({ "@type": "City", name })),
+  email: site.email,
+};
+---
+<Base header="transparent">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+
+  <Hero
+    eyebrow="West Coast property marketing"
+    lead="We help property professionals attract the right buyers, build visibility, and turn their marketing into opportunity."
+    imageBrief="Full-bleed architectural photograph: a modern West Coast home against a moody Atlantic sky, strong lines, negative space"
+  >Beautiful property. <em>Strategic</em> marketing.</Hero>
+
+  <!-- Positioning -->
+  <section class="section intro">
+    <div class="container grid intro__grid">
+      <div class="intro__statement" data-reveal>
+        <Eyebrow text="Who we work with" />
+        <p class="h1 intro__text">A higher standard of property marketing for the agents and developers shaping the West Coast.</p>
+      </div>
+      <div class="intro__audiences">
+        {audiences.map((a) => (
+          <div class="audience" data-reveal>
+            <h2 class="h3">{a.title}</h2>
+            <p class="muted">{a.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services" id="services" aria-labelledby="services-title">
+    <div class="container">
+      <header class="section-head grid">
+        <div class="section-head__title">
+          <Eyebrow number="01" text="Services" />
+          <h2 id="services-title" class="h1">Everything a property needs to be <em>seen</em>, and chosen.</h2>
+        </div>
+      </header>
+      <div class="services__list">
+        {services.map((service, i) => <ServiceRow index={i + 1} reverse={i % 2 === 1} {...service} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section class="section theme-ink" id="work" aria-labelledby="work-title">
+    <div class="container">
+      <header class="section-head grid">
+        <div class="section-head__title">
+          <Eyebrow number="02" text="Selected work" />
+          <h2 id="work-title" class="h1">Marketing that moves property.</h2>
+        </div>
+      </header>
+      <div class="grid work__grid">
+        {work.map((item) => <WorkTile {...item} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="section" id="approach" aria-labelledby="approach-title">
+    <div class="container">
+      <header class="section-head grid">
+        <div class="section-head__title">
+          <Eyebrow number="03" text="Approach" />
+          <h2 id="approach-title" class="h1">Considered from the first conversation.</h2>
+        </div>
+        <p class="lead muted section-head__aside">Every campaign follows the same disciplined process, so the work is consistent whether it is a single listing or a full development launch.</p>
+      </header>
+      <ProcessSteps steps={process} />
+    </div>
+  </section>
+
+  <!-- Full-bleed image break -->
+  <div class="break">
+    <ImagePlaceholder ratio="21/9" tone="ink" brief="Atmospheric Atlantic landscape: weathered rock and sea under an overcast sky, no people" />
+  </div>
+
+  <!-- Areas -->
+  <section class="section theme-sand areas" aria-labelledby="areas-title">
+    <div class="container grid">
+      <div class="areas__intro">
+        <Eyebrow number="04" text="Where we work" />
+        <h2 id="areas-title" class="h2">Rooted on the West Coast.</h2>
+        <p>We know these towns, their buyers and what makes each one distinctive.</p>
+      </div>
+      <ul class="areas__list">
+        {towns.map((town) => <li class="display">{town}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="container grid">
+      <div class="contact__intro">
+        <Eyebrow number="05" text="Let’s talk" />
+        <h2 id="contact-title" class="h1">Make your next move <em>count</em>.</h2>
+        <p class="lead muted">Tell us about the listing, development or brand you are working on. Your answers open as a WhatsApp message, so the conversation starts straight away.</p>
+        <p class="contact__direct label">
+          Prefer to message directly? <a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener">WhatsApp us</a>
+        </p>
+      </div>
+      <div class="contact__form">
+        <EnquiryForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .section-head { row-gap: var(--space-5); margin-bottom: clamp(var(--space-8), 6vw, var(--space-10)); align-items: end; }
+  .section-head__title { grid-column: 1 / -1; display: grid; gap: var(--space-5); }
+  .section-head__aside { grid-column: 1 / -1; }
+  @media (min-width: 1024px) {
+    .section-head__title { grid-column: 1 / span 8; }
+    .section-head__aside { grid-column: 9 / span 4; }
+  }
+
+  .intro__grid { row-gap: var(--space-8); }
+  .intro__statement { grid-column: 1 / -1; display: grid; gap: var(--space-6); }
+  .intro__text { max-width: 22ch; }
+  .intro__audiences { grid-column: 1 / -1; display: grid; gap: var(--space-7); }
+  .audience { display: grid; gap: var(--space-3); padding-top: var(--space-5); border-top: var(--border); }
+  @media (min-width: 768px) { .intro__audiences { grid-template-columns: 1fr 1fr; gap: var(--grid-gap); } }
+  @media (min-width: 1024px) {
+    .intro__statement { grid-column: 1 / span 9; }
+    .intro__audiences { grid-column: 4 / span 9; }
+  }
+
+  .services__list { display: grid; gap: clamp(var(--space-8), 8vw, var(--space-11)); }
+
+  .work__grid { row-gap: var(--space-8); }
+
+  .areas { padding-block: var(--space-9); }
+  .areas .grid { row-gap: var(--space-7); }
+  .areas__intro { grid-column: 1 / -1; display: grid; gap: var(--space-4); align-content: start; }
+  .areas__list { grid-column: 1 / -1; list-style: none; padding: 0; }
+  .areas__list li { font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem); border-bottom: 1px solid rgba(26, 31, 28, 0.2); padding-block: var(--space-2); }
+  @media (min-width: 1024px) {
+    .areas__intro { grid-column: 1 / span 4; position: sticky; top: 7rem; }
+    .areas__list { grid-column: 6 / span 7; }
+  }
+
+  .contact .grid { row-gap: var(--space-8); }
+  .contact__intro { grid-column: 1 / -1; display: grid; gap: var(--space-5); align-content: start; }
+  .contact__direct { color: var(--color-text-muted); }
+  .contact__direct a { color: var(--color-text); }
+  .contact__form { grid-column: 1 / -1; }
+  @media (min-width: 1024px) {
+    .contact__intro { grid-column: 1 / span 5; position: sticky; top: 7rem; }
+    .contact__form { grid-column: 7 / span 6; }
+  }
+</style>

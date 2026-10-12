@@ -1,0 +1,49 @@
+---
+import Button from "./Button.astro";
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+interface Props { eyebrow?: string; lead: string; imageBrief: string }
+const { eyebrow, lead, imageBrief } = Astro.props;
+---
+<section class="hero theme-ink">
+  <div class="hero__media">
+    <ImagePlaceholder ratio="fill" tone="atlantic" brief={imageBrief} />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="container hero__content grid">
+    <div class="hero__text">
+      {eyebrow && <p class="label hero__eyebrow">{eyebrow}</p>}
+      <h1 class="display"><slot /></h1>
+      <p class="lead hero__lead">{lead}</p>
+      <div class="hero__actions">
+        <Button href="/#contact">Let&rsquo;s talk</Button>
+        <Button href="/#work" variant="text">Explore our work</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-block: 8rem var(--space-9);
+    isolation: isolate;
+  }
+  .hero__media { position: absolute; inset: 0; z-index: -2; }
+  /* Placeholder brief sits top-right so it never collides with the headline */
+  .hero__media :global(.placeholder) { justify-content: flex-start; align-items: flex-end; text-align: right; padding-top: 6rem; }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(26, 31, 28, 0.15) 0%, rgba(26, 31, 28, 0) 35%, rgba(26, 31, 28, 0.75) 100%);
+  }
+  .hero__text { grid-column: 1 / -1; display: grid; gap: var(--space-5); }
+  @media (min-width: 1024px) { .hero__text { grid-column: 1 / span 9; } }
+  .hero__eyebrow { color: var(--ww-warm-sand); }
+  .hero__lead { color: var(--ww-salt-white); opacity: 0.88; max-width: 44ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-7); margin-top: var(--space-4); }
+</style>

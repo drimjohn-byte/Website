@@ -1,0 +1,42 @@
+---
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+interface Props {
+  index: number;
+  title: string;
+  body: string;
+  includes: string[];
+  image: string;
+  reverse?: boolean;
+}
+const { index, title, body, includes, image, reverse = false } = Astro.props;
+const number = String(index).padStart(2, "0");
+---
+<article class:list={["service grid", { "service--reverse": reverse }]} data-reveal>
+  <div class="service__media">
+    <ImagePlaceholder ratio={reverse ? "4/5" : "3/2"} tone={index % 3 === 0 ? "sand" : "stone"} brief={image} />
+  </div>
+  <div class="service__text">
+    <p class="label service__number">{number}</p>
+    <h3 class="h2">{title}</h3>
+    <p class="muted">{body}</p>
+    <ul class="service__includes">
+      {includes.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</article>
+
+<style>
+  .service { row-gap: var(--space-6); align-items: center; }
+  .service__media, .service__text { grid-column: 1 / -1; }
+  .service__text { display: grid; gap: var(--space-4); }
+  .service__number { color: var(--color-text-muted); }
+  .service__includes { list-style: none; padding: 0; margin-top: var(--space-3); border-top: var(--border); }
+  .service__includes li { padding-block: var(--space-3); border-bottom: var(--border); font-size: var(--text-small); }
+
+  @media (min-width: 1024px) {
+    .service__media { grid-column: 1 / span 7; }
+    .service__text { grid-column: 9 / span 4; }
+    .service--reverse .service__media { grid-column: 7 / span 5; grid-row: 1; }
+    .service--reverse .service__text { grid-column: 2 / span 4; grid-row: 1; }
+  }
+</style>

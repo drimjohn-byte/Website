@@ -1,0 +1,21 @@
+---
+interface Props { steps: { title: string; body: string }[] }
+const { steps } = Astro.props;
+---
+<ol class="steps">
+  {steps.map((step, i) => (
+    <li class="step" data-reveal>
+      <span class="step__number display" aria-hidden="true">{i + 1}</span>
+      <h3 class="h3">{step.title}</h3>
+      <p class="muted">{step.body}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps { list-style: none; padding: 0; display: grid; gap: var(--space-7) var(--grid-gap); grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .steps { grid-template-columns: repeat(5, 1fr); } }
+  .step { display: grid; gap: var(--space-3); align-content: start; padding-top: var(--space-5); border-top: var(--border); }
+  .step__number { font-size: var(--text-h1); color: var(--color-accent); line-height: 1; }
+</style>

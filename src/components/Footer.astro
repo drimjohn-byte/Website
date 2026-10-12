@@ -1,0 +1,72 @@
+---
+import Wordmark from "./Wordmark.astro";
+import Monogram from "./Monogram.astro";
+import { site, towns, nav } from "../config/site";
+const whatsapp = `https://wa.me/${site.whatsappNumber}`;
+const year = new Date().getFullYear();
+---
+<footer class="footer theme-ink">
+  <div class="container">
+    <div class="footer__top grid">
+      <div class="footer__brand">
+        <Wordmark descriptor size="lg" />
+        <p class="muted">{site.tagline}</p>
+      </div>
+
+      <div class="footer__col">
+        <p class="label muted">Contact</p>
+        <ul>
+          <li><a href={whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          {site.instagram && <li><a href={site.instagram} target="_blank" rel="noopener">Instagram</a></li>}
+          {site.linkedin && <li><a href={site.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="label muted">Explore</p>
+        <ul>{nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="label muted">Areas</p>
+        <ul>{towns.map((town) => <li>{town}</li>)}</ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <Monogram size={28} />
+      <p class="muted">&copy; {year} {site.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: var(--space-9) var(--space-6); }
+  .footer__top { row-gap: var(--space-7); padding-bottom: var(--space-8); }
+  .footer__brand { grid-column: 1 / -1; display: grid; gap: var(--space-5); align-content: start; }
+  .footer__col { grid-column: span 2; display: grid; gap: var(--space-4); align-content: start; }
+  .footer__col:last-child { grid-column: 1 / -1; }
+  .footer ul { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+  .footer a { text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  @media (min-width: 768px) {
+    .footer__col, .footer__col:last-child { grid-column: span 2; }
+  }
+  @media (min-width: 1024px) {
+    .footer__brand { grid-column: 1 / span 5; }
+    .footer__col { grid-column: span 2; }
+    .footer__col:nth-child(2) { grid-column: 7 / span 2; }
+  }
+
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: var(--border);
+    font-size: var(--text-small);
+  }
+</style>

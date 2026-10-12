@@ -1,0 +1,53 @@
+---
+/*
+  Stand-in for photography that has not been shot yet. Swap each one for an
+  <Image>/<picture> with the same aspect ratio. Search the codebase for
+  "ImagePlaceholder" to find every remaining slot.
+*/
+interface Props {
+  ratio?: "3/2" | "4/5" | "16/9" | "21/9" | "1/1" | "fill";
+  tone?: "ink" | "atlantic" | "sand" | "stone";
+  brief: string;
+  class?: string;
+}
+const { ratio = "3/2", tone = "stone", brief, class: className } = Astro.props;
+---
+<div
+  class:list={["placeholder", `placeholder--${tone}`, { "placeholder--fill": ratio === "fill" }, className]}
+  style={ratio === "fill" ? undefined : `aspect-ratio: ${ratio}`}
+  data-placeholder
+  role="img"
+  aria-label={`Photograph to come: ${brief}`}
+>
+  <span class="placeholder__tag label">Photograph to come</span>
+  <span class="placeholder__brief">{brief}</span>
+</div>
+
+<style>
+  .placeholder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-5);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .placeholder--fill { height: 100%; }
+  /* Soft horizon line, to suggest a composition without faking a photo */
+  .placeholder::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, transparent 0 58%, rgba(255, 255, 255, 0.05) 58% 58.3%, transparent 58.3%);
+  }
+  .placeholder--ink { background: linear-gradient(160deg, #2a322d 0%, var(--ww-deep-ink) 70%); color: var(--ww-stone); }
+  .placeholder--atlantic { background: linear-gradient(170deg, #3d575d 0%, var(--ww-atlantic) 55%, #1f2f33 100%); color: #c4cfcd; }
+  .placeholder--sand { background: linear-gradient(165deg, #d9ccb8 0%, var(--ww-warm-sand) 100%); color: var(--ww-deep-ink); }
+  .placeholder--stone { background: linear-gradient(165deg, #b9b6a8 0%, #8f9180 100%); color: var(--ww-deep-ink); }
+  .placeholder__tag { opacity: 0.9; }
+  .placeholder__brief { font-size: var(--text-small); max-width: 36ch; opacity: 0.85; }
+</style>

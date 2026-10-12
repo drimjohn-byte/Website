@@ -1,0 +1,15 @@
+---
+interface Props { number?: string; text: string; as?: "p" | "span" }
+const { number, text, as: Tag = "p" } = Astro.props;
+---
+<Tag class="eyebrow label">
+  {number && <span class="eyebrow__number">{number}</span>}
+  {number && <span class="eyebrow__line" aria-hidden="true"></span>}
+  <span>{text}</span>
+</Tag>
+
+<style>
+  .eyebrow { display: inline-flex; align-items: center; gap: var(--space-3); color: var(--color-text-muted); }
+  .eyebrow__number { color: var(--color-text); }
+  .eyebrow__line { display: inline-block; width: 2.5rem; border-top: 1px solid var(--color-accent); }
+</style>

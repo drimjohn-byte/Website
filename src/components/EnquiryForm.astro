@@ -1,0 +1,225 @@
+---
+/*
+  Lead form that hands off to WhatsApp Business. Nothing is stored on a server:
+  on submit the answers are composed into a pre-filled message and opened with
+  wa.me, so the conversation lands straight in the WhatsApp Business inbox.
+*/
+import Button from "./Button.astro";
+import { site, services, towns, roles } from "../config/site";
+---
+<div class="enquiry" data-enquiry data-whatsapp={site.whatsappNumber}>
+  <form class="form" novalidate data-form>
+    <div class="form__summary" role="alert" tabindex="-1" hidden data-summary>
+      <p><strong>Please check the following:</strong></p>
+      <ul data-summary-list></ul>
+    </div>
+
+    <div class="field">
+      <label for="f-name" class="label">Name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required data-error="Please enter your name." />
+      <p class="field__error" id="f-name-error" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="f-company" class="label">Agency or company <span class="muted">(optional)</span></label>
+      <input id="f-company" name="company" type="text" autocomplete="organization" />
+    </div>
+
+    <fieldset class="field" data-group="role" data-error="Please tell us who you are.">
+      <legend class="label">I am</legend>
+      <div class="chips">
+        {roles.map((role, i) => (
+          <label class="chip">
+            <input type="radio" name="role" value={role} required={i === 0} />
+            <span>{role}</span>
+          </label>
+        ))}
+      </div>
+      <p class="field__error" id="f-role-error" hidden></p>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="label">Interested in <span class="muted">(choose any)</span></legend>
+      <div class="chips">
+        {services.map((service) => (
+          <label class="chip">
+            <input type="checkbox" name="services" value={service.title} />
+            <span>{service.title}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="f-area" class="label">Area</label>
+      <select id="f-area" name="area">
+        <option value="">Select an area</option>
+        {towns.map((town) => <option>{town}</option>)}
+        <option>Elsewhere on the West Coast</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="f-message" class="label">Tell us about the property or project</label>
+      <textarea id="f-message" name="message" rows="4"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="consent">
+        <input type="checkbox" name="consent" required data-error="Please agree so we can contact you." aria-describedby="f-consent-error" />
+        <span>I agree that WESTWARD may use these details to reply to my enquiry, in line with POPIA. They are not shared with anyone else.</span>
+      </label>
+      <p class="field__error" id="f-consent-error" hidden></p>
+    </div>
+
+    <div class="form__submit">
+      <Button type="submit">Continue in WhatsApp</Button>
+      <p class="muted form__note">Opens WhatsApp with your message ready to send.</p>
+    </div>
+  </form>
+
+  <div class="success" hidden tabindex="-1" data-success>
+    <h3 class="h3">Your message is ready in WhatsApp.</h3>
+    <p class="muted">Press send in WhatsApp and we&rsquo;ll pick up the conversation from there.</p>
+    <p><a href="#" data-success-link>WhatsApp didn&rsquo;t open? Use this link.</a></p>
+  </div>
+</div>
+
+<style>
+  .form { display: grid; gap: var(--space-6); }
+  .field { display: grid; gap: var(--space-3); border: 0; padding: 0; min-width: 0; }
+  .field legend { padding: 0; margin-bottom: var(--space-3); }
+
+  input[type="text"], select, textarea {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: var(--space-3) 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-text-muted);
+    border-radius: 0;
+    font-size: var(--text-body);
+    transition: border-color var(--duration-fast) var(--ease);
+  }
+  textarea { resize: vertical; min-height: 7rem; }
+  select { appearance: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235E624F' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right center; }
+  input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--color-text); box-shadow: 0 1px 0 0 var(--color-text); }
+  [aria-invalid="true"] { border-bottom-color: var(--color-error) !important; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 var(--space-4);
+    border: 1px solid var(--color-line);
+    border-color: color-mix(in srgb, var(--color-text) 25%, transparent);
+    font-size: var(--text-small);
+    transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
+  }
+  .chip:hover span { border-color: var(--color-text); }
+  .chip input:checked + span { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+  .chip input:focus-visible + span { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+  .consent { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); font-size: var(--text-small); align-items: start; }
+  .consent input { width: 1.125rem; height: 1.125rem; margin-top: 0.15rem; accent-color: var(--ww-deep-ink); }
+
+  .field__error { color: var(--color-error); font-size: var(--text-small); }
+  .form__summary { padding: var(--space-5); border: 1px solid var(--color-error); display: grid; gap: var(--space-2); }
+  .form__summary ul { padding-left: var(--space-5); }
+  .form__summary a { color: var(--color-error); }
+
+  .form__submit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-5); }
+  .form__note { font-size: var(--text-small); }
+
+  .success { display: grid; gap: var(--space-4); padding: var(--space-7) 0; border-top: var(--border); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-enquiry]").forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>("[data-form]")!;
+    const summary = root.querySelector<HTMLElement>("[data-summary]")!;
+    const summaryList = root.querySelector<HTMLElement>("[data-summary-list]")!;
+    const success = root.querySelector<HTMLElement>("[data-success]")!;
+    const successLink = root.querySelector<HTMLAnchorElement>("[data-success-link]")!;
+    const number = root.dataset.whatsapp!;
+
+    type Problem = { id: string; message: string; errorEl: HTMLElement | null; field: HTMLElement };
+
+    const validate = (): Problem[] => {
+      const problems: Problem[] = [];
+      const name = form.elements.namedItem("name") as HTMLInputElement;
+      const consent = form.elements.namedItem("consent") as HTMLInputElement;
+      const roleGroup = form.querySelector<HTMLElement>('[data-group="role"]')!;
+      const roleChecked = form.querySelector('input[name="role"]:checked');
+
+      if (!name.value.trim()) problems.push({ id: name.id, message: name.dataset.error!, errorEl: root.querySelector("#f-name-error"), field: name });
+      if (!roleChecked) {
+        const first = roleGroup.querySelector<HTMLInputElement>("input")!;
+        first.id ||= "f-role";
+        problems.push({ id: first.id, message: roleGroup.dataset.error!, errorEl: root.querySelector("#f-role-error"), field: first });
+      }
+      if (!consent.checked) {
+        consent.id ||= "f-consent";
+        problems.push({ id: consent.id, message: consent.dataset.error!, errorEl: root.querySelector("#f-consent-error"), field: consent });
+      }
+      return problems;
+    };
+
+    const clearErrors = () => {
+      form.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+      form.querySelectorAll<HTMLElement>(".field__error").forEach((el) => { el.hidden = true; el.textContent = ""; });
+      summary.hidden = true;
+      summaryList.replaceChildren();
+    };
+
+    const buildMessage = (data: FormData) => {
+      const lines = ["Hello WESTWARD, I'd like to talk about property marketing.", ""];
+      const add = (label: string, value: string) => value && lines.push(`${label}: ${value}`);
+      add("Name", String(data.get("name") ?? "").trim());
+      add("Company", String(data.get("company") ?? "").trim());
+      add("I am", String(data.get("role") ?? ""));
+      add("Interested in", data.getAll("services").join(", "));
+      add("Area", String(data.get("area") ?? ""));
+      const message = String(data.get("message") ?? "").trim();
+      if (message) lines.push("", message);
+      return lines.join("\n");
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      const problems = validate();
+      if (problems.length) {
+        problems.forEach((p) => {
+          p.field.setAttribute("aria-invalid", "true");
+          if (p.errorEl) { p.errorEl.textContent = p.message; p.errorEl.hidden = false; }
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = `#${p.id}`;
+          a.textContent = p.message;
+          a.addEventListener("click", (e) => { e.preventDefault(); p.field.focus(); });
+          li.append(a);
+          summaryList.append(li);
+        });
+        summary.hidden = false;
+        summary.focus();
+        return;
+      }
+
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(buildMessage(new FormData(form)))}`;
+      successLink.href = url;
+      // window.open returns null when "noopener" is passed, so detach the opener manually instead.
+      const opened = window.open(url, "_blank");
+      if (opened) opened.opener = null;
+      else window.location.href = url;
+
+      form.hidden = true;
+      success.hidden = false;
+      success.focus();
+    });
+  });
+</script>

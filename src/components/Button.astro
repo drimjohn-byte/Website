@@ -1,0 +1,57 @@
+---
+interface Props {
+  href?: string;
+  variant?: "primary" | "outline" | "text";
+  type?: "button" | "submit";
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = "primary", type = "button", class: className, ...rest } = Astro.props;
+const classes = ["btn", `btn--${variant}`, "label", className];
+---
+{href ? (
+  <a href={href} class:list={classes} {...rest}><span><slot /></span>{variant === "text" && <span class="btn__arrow" aria-hidden="true">&rarr;</span>}</a>
+) : (
+  <button type={type} class:list={classes} {...rest}><span><slot /></span>{variant === "text" && <span class="btn__arrow" aria-hidden="true">&rarr;</span>}</button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    min-height: 3.25rem;
+    padding: 0 var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease),
+      border-color var(--duration-fast) var(--ease);
+  }
+  .btn--primary { background: var(--color-cta-bg); color: var(--color-cta-text); }
+  .btn--primary:hover { background: var(--ww-atlantic); color: var(--ww-salt-white); }
+  :global(.theme-ink) .btn--primary:hover,
+  :global(.theme-atlantic) .btn--primary:hover { background: var(--ww-warm-sand); color: var(--ww-deep-ink); }
+
+  .btn--outline { border-color: currentColor; background: transparent; color: var(--color-text); }
+  .btn--outline:hover { background: var(--color-text); color: var(--color-bg); }
+
+  .btn--text {
+    min-height: 3.25rem;
+    padding: 0;
+    background: none;
+    color: var(--color-text);
+    position: relative;
+  }
+  .btn--text > span:first-child {
+    background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 100% 1px;
+    padding-bottom: 0.35em;
+    transition: background-size var(--duration-base) var(--ease);
+  }
+  .btn--text:hover > span:first-child { background-size: 35% 1px; }
+  .btn__arrow { transition: transform var(--duration-base) var(--ease); }
+  .btn--text:hover .btn__arrow { transform: translateX(4px); }
+</style>
