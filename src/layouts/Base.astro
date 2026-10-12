@@ -12,7 +12,9 @@ interface Props {
 }
 const { title, description = site.description, header = "solid" } = Astro.props;
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline.replace(/\.$/, "")}`;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// The domain is a placeholder until launch; leave canonical and og:url out rather than point at it.
+const hasDomain = Astro.site && Astro.site.hostname !== "example.com";
+const canonical = hasDomain ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 <!doctype html>
 <html lang="en-ZA">
@@ -21,13 +23,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#1A1F1C" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <script is:inline>document.documentElement.classList.add("js");</script>
     <slot name="head" />
   </head>

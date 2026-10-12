@@ -21,7 +21,7 @@ const others = services.filter((s) => s.slug !== service.slug);
         <Eyebrow text={service.audience} />
         <h1 class="display">{service.title}</h1>
         <p class="lead muted">{service.summary}</p>
-        <Price from={service.priceFrom} note={service.priceNote} guarantee={service.guarantee} />
+        <Price from={service.priceFrom} note={service.priceNote} guarantee={service.guarantee} tiers={service.tiers} />
         <div class="svc-head__actions">
           <Button href="/#contact">Let&rsquo;s talk</Button>
           <Button href="/work/harbours-edge" variant="text">See the Harbour&rsquo;s Edge launch</Button>

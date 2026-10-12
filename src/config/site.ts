@@ -43,6 +43,8 @@ export type Service = {
   // A rand amount (e.g. "R2,950") shows as "From R2,950"; any other text (e.g. "On quote") shows as written.
   priceFrom: string;
   priceNote?: string;
+  // Optional price tiers, shown instead of the single "from" price.
+  tiers?: { label: string; from: string }[];
   // Short delivery promise shown under the price.
   guarantee?: string;
   image: string;
@@ -70,7 +72,7 @@ export const services: Service[] = [
     outcome: "Listings that stand out on the portals and give buyers a reason to book a viewing.",
     includes: ["Interior and exterior photography", "Walkthrough video", "Vertical reels for social"],
     priceFrom: "R2,950",
-    priceNote: "Founding rate",
+    priceNote: "Founding rate for the first 5 listings, then R4,500",
     guarantee: "Photos in 24 hours. Video in 48, or the video is free.",
     image: "Interior: open living space toward the Atlantic, overcast natural light",
     seoTitle: "Property photography and video in Velddrif and Langebaan",
@@ -83,6 +85,10 @@ export const services: Service[] = [
     outcome: "Listing images that hold their own on Airbnb and Booking.com, and content for your own channels.",
     includes: ["Room and property photography", "Short video tour", "Reels for social", "Images sized for booking platforms"],
     priceFrom: "R1,950",
+    tiers: [
+      { label: "Photos only", from: "R1,950" },
+      { label: "Photos, video tour and reels", from: "R2,950" },
+    ],
     image: "Guest suite with natural textures and soft directional light, view toward the water",
     seoTitle: "Holiday rental and guesthouse photography on the West Coast",
   },

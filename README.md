@@ -48,6 +48,7 @@ Every value still marked `TODO` in `src/config/site.ts` or `src/content/work/har
 - [ ] Fill in the Harbour's Edge case study, add the live site URL as `website`, and remove `draft: true`
 - [ ] Confirm who shot the Harbour's Edge aerials. If WESTWARD did, add "Aerial photography" back to its `services`; if not, get permission and a photo credit before using the aerial as the hero
 - [ ] Replace the remaining `ImagePlaceholder` blocks with real photography, or remove them
-- [ ] Set the live domain in `astro.config.mjs`
+- [ ] Set the live domain in `astro.config.mjs` (canonical and `og:url` tags are left out until it is set)
+- [ ] Change the listings price to R4,500 and remove the founding-rate note after the first 5 founding listings
 - [ ] Add Instagram and LinkedIn links in `src/config/site.ts`
 - [ ] Add an Open Graph share image (1200×630)

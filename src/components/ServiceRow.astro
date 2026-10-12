@@ -17,7 +17,7 @@ const { service, reverse = false, tone = "stone" } = Astro.props;
     <ul class="service__includes">
       {service.includes.map((item) => <li>{item}</li>)}
     </ul>
-    <Price from={service.priceFrom} note={service.priceNote} guarantee={service.guarantee} />
+    <Price from={service.priceFrom} note={service.priceNote} guarantee={service.guarantee} tiers={service.tiers} />
     <Button href={`/services/${service.slug}`} variant="text">More on {service.title.toLowerCase()}</Button>
   </div>
 </article>
