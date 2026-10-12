@@ -1,18 +1,27 @@
 // Central content and contact settings. Edit here rather than in components.
+// Anything marked TODO must be filled in before launch; the site shows a visible
+// "to confirm" marker wherever a TODO value is still in place.
+
+export const TODO = "TODO";
 
 export const site = {
   name: "WESTWARD",
   descriptor: "Property Marketing Agency",
-  tagline: "Premium marketing for property professionals.",
+  tagline: "Property photography, film and launch websites on the West Coast.",
   description:
-    "WESTWARD is a property marketing agency for estate agents and developers on the South African West Coast, from Velddrif to Langebaan.",
+    "WESTWARD is a Velddrif-based property marketing studio. Photography, film, reels and launch websites for developments, listings and holiday rentals on the West Coast.",
 
-  // TODO: replace with the WhatsApp Business number in international format, digits only (e.g. 27821234567).
+  // TODO: WhatsApp Business number in international format, digits only (e.g. 27821234567).
   whatsappNumber: "27000000000",
-  // TODO: replace with the real address before launch.
-  email: "hello@example.com",
+  // TODO: real email address.
+  email: TODO,
+  // TODO: address exactly as it appears on the Google Business Profile.
+  address: { street: TODO, town: "Velddrif", postcode: TODO, region: "Western Cape", country: "ZA" },
   instagram: "",
   linkedin: "",
+
+  // Hero photograph. Put the file in public/images/ and set src, e.g. "/images/harbours-edge-aerial.jpg".
+  heroImage: { src: "", alt: "Aerial view of Harbour's Edge on the West Coast" },
 };
 
 export const towns = ["Velddrif", "Langebaan", "Paternoster", "Saldanha", "Yzerfontein"];
@@ -24,53 +33,53 @@ export const nav = [
   { label: "Contact", href: "/#contact" },
 ];
 
-export const audiences = [
-  {
-    title: "Estate agents",
-    body: "Listings presented with the care of an editorial feature, and a personal brand that sellers remember when they choose who to call.",
-  },
-  {
-    title: "Developers",
-    body: "Launch campaigns that position a development before the first show day, then keep enquiries moving through every release phase.",
-  },
-];
+export type Service = {
+  slug: string;
+  title: string;
+  audience: string;
+  summary: string;
+  outcome: string;
+  includes: string[];
+  // TODO: "from" price as it should appear, e.g. "R8 500". Leave as TODO to show "Price to confirm".
+  priceFrom: string;
+  image: string;
+  seoTitle: string;
+};
 
-export const services = [
+export const services: Service[] = [
   {
-    title: "Brand Strategy",
-    body: "Positioning, messaging and visual identity for agencies and developments that need to stand apart in a small, competitive market.",
-    includes: ["Market and competitor review", "Positioning and messaging", "Identity and brand guidelines"],
-    image: "Architectural detail: textured plaster wall and stone, directional late light",
+    slug: "development-launches",
+    title: "Development launches",
+    audience: "For developers",
+    summary:
+      "A launch website, aerial and site photography, and a launch film, ready before the first buyer asks for a brochure.",
+    outcome: "Buyers see the development at its best from day one, and every enquiry lands in one place.",
+    includes: ["Launch website", "Aerial and site photography", "Launch film and reels", "Enquiry routing to WhatsApp"],
+    priceFrom: TODO,
+    image: "Aerial view of a development site in its coastal setting, overcast or golden hour",
+    seoTitle: "Development launch marketing on the West Coast",
   },
   {
-    title: "Property Marketing",
-    body: "Complete listing campaigns, from the first photograph to the final enquiry, built around who is most likely to buy.",
-    includes: ["Listing campaign planning", "Brochures and property websites", "Launch and show-day material"],
-    image: "Modern coastal home exterior at golden hour, wide composition, negative space",
-  },
-  {
-    title: "Content Creation",
-    body: "Architectural photography, film and written copy that let a property speak for itself.",
-    includes: ["Photography and aerial", "Property film and reels", "Listing and editorial copywriting"],
+    slug: "listings",
+    title: "Listings",
+    audience: "For our agency partners",
+    summary: "Architectural photography, a walkthrough video and reels for each listing, on a turnaround agreed up front.",
+    outcome: "Listings that stand out on the portals and give buyers a reason to book a viewing.",
+    includes: ["Interior and exterior photography", "Walkthrough video", "Vertical reels for social", "Agreed turnaround"],
+    priceFrom: TODO,
     image: "Interior: open living space toward the Atlantic, overcast natural light",
+    seoTitle: "Property photography and video in Velddrif and Langebaan",
   },
   {
-    title: "Digital Advertising",
-    body: "Paid campaigns on Meta and Google, targeted to buyers and investors actively looking on the West Coast.",
-    includes: ["Campaign setup and targeting", "Creative for each placement", "Monthly reporting"],
-    image: "Detail of a weathered timber deck and dune grass, muted tones",
-  },
-  {
-    title: "Lead Generation",
-    body: "Funnels, landing pages and follow-up that turn attention into qualified conversations.",
-    includes: ["Landing pages", "Lead forms and WhatsApp routing", "Enquiry tracking"],
-    image: "Dusk view of a lit residence on the coast, moody sky",
-  },
-  {
-    title: "Agent Brand Development",
-    body: "A distinctive personal brand for agents who want sellers to choose them on reputation, not commission.",
-    includes: ["Personal brand identity", "Portrait photography", "Social content direction"],
-    image: "Editorial portrait of an agent in natural light, architectural backdrop",
+    slug: "rentals-hospitality",
+    title: "Rentals and hospitality",
+    audience: "For holiday rentals, guesthouses and lodges",
+    summary: "Photography, video and reels that make a stay feel booked before the guest arrives.",
+    outcome: "Listing images that hold their own on Airbnb and Booking.com, and content for your own channels.",
+    includes: ["Room and property photography", "Short video tour", "Reels for social", "Images sized for booking platforms"],
+    priceFrom: TODO,
+    image: "Guest suite with natural textures and soft directional light, view toward the water",
+    seoTitle: "Holiday rental and guesthouse photography on the West Coast",
   },
 ];
 
@@ -82,4 +91,6 @@ export const process = [
   { title: "Refine", body: "We read the response and adjust until the right enquiries arrive." },
 ];
 
-export const roles = ["Estate agent", "Agency principal", "Developer", "Other"];
+export const roles = ["Developer", "Rental or guesthouse owner", "Estate agent", "Other"];
+
+export const isTodo = (value: string) => !value || value === TODO;

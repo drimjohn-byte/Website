@@ -1,0 +1,23 @@
+---
+import Button from "./Button.astro";
+---
+<aside class="next-slot" data-reveal>
+  <p class="label muted">Your project here</p>
+  <h3 class="h2">Your launch could be the next one on this page.</h3>
+  <p class="muted">We take on a small number of projects at a time, so each one gets full attention.</p>
+  <Button href="/#contact" variant="outline">Start a conversation</Button>
+</aside>
+
+<style>
+  .next-slot {
+    grid-column: 1 / -1;
+    align-self: start;
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+    padding: var(--space-7) var(--space-6);
+    border: 1px solid var(--color-line);
+  }
+  @media (min-width: 768px) { .next-slot { grid-column: span 2; } }
+  @media (min-width: 1024px) { .next-slot { grid-column: 9 / span 4; margin-top: var(--space-10); } }
+</style>

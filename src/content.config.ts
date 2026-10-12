@@ -13,12 +13,14 @@ const work = defineCollection({
     services: z.array(z.string()).min(1),
     year: z.number(),
     summary: z.string(),
-    heroImage: z.string(), // shot brief until real photography is added
+    heroImage: z.string(), // shot brief, shown until heroSrc is set
+    heroSrc: z.string().default(""), // e.g. "/images/harbours-edge-aerial.jpg" in public/
+    website: z.string().default(""), // live URL of a site we built, if any
     gallery: z.array(z.string()).default([]),
     results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
     quote: z.object({ text: z.string(), name: z.string(), role: z.string() }).optional(),
-    // Sample entries show a banner so they can never be mistaken for real work.
-    sample: z.boolean().default(false),
+    // Drafts show a banner until the details are confirmed with the client.
+    draft: z.boolean().default(false),
   }),
 });
 

@@ -1,36 +1,33 @@
 ---
-import ImagePlaceholder from "./ImagePlaceholder.astro";
-interface Props {
-  index: number;
-  title: string;
-  body: string;
-  includes: string[];
-  image: string;
-  reverse?: boolean;
-}
-const { index, title, body, includes, image, reverse = false } = Astro.props;
-const number = String(index).padStart(2, "0");
+import Photo from "./Photo.astro";
+import Price from "./Price.astro";
+import Button from "./Button.astro";
+import type { Service } from "../config/site";
+interface Props { service: Service; reverse?: boolean; tone?: "sand" | "stone" }
+const { service, reverse = false, tone = "stone" } = Astro.props;
 ---
 <article class:list={["service grid", { "service--reverse": reverse }]} data-reveal>
   <div class="service__media">
-    <ImagePlaceholder ratio={reverse ? "4/5" : "3/2"} tone={index % 3 === 0 ? "sand" : "stone"} brief={image} />
+    <Photo ratio={reverse ? "4/5" : "3/2"} tone={tone} alt="" brief={service.image} />
   </div>
   <div class="service__text">
-    <p class="label service__number">{number}</p>
-    <h3 class="h2">{title}</h3>
-    <p class="muted">{body}</p>
+    <p class="label service__audience">{service.audience}</p>
+    <h3 class="h2">{service.title}</h3>
+    <p class="muted">{service.summary}</p>
     <ul class="service__includes">
-      {includes.map((item) => <li>{item}</li>)}
+      {service.includes.map((item) => <li>{item}</li>)}
     </ul>
+    <Price from={service.priceFrom} />
+    <Button href={`/services/${service.slug}`} variant="text">More on {service.title.toLowerCase()}</Button>
   </div>
 </article>
 
 <style>
   .service { row-gap: var(--space-6); align-items: center; }
   .service__media, .service__text { grid-column: 1 / -1; }
-  .service__text { display: grid; gap: var(--space-4); }
-  .service__number { color: var(--color-text-muted); }
-  .service__includes { list-style: none; padding: 0; margin-top: var(--space-3); border-top: var(--border); }
+  .service__text { display: grid; gap: var(--space-4); justify-items: start; }
+  .service__audience { color: var(--color-text-muted); }
+  .service__includes { list-style: none; padding: 0; margin-top: var(--space-3); border-top: var(--border); width: 100%; }
   .service__includes li { padding-block: var(--space-3); border-bottom: var(--border); font-size: var(--text-small); }
 
   @media (min-width: 1024px) {

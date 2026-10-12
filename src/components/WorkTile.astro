@@ -1,11 +1,11 @@
 ---
-import ImagePlaceholder from "./ImagePlaceholder.astro";
-interface Props { title: string; location: string; services: string; image: string; size: "large" | "small"; href?: string }
-const { title, location, services, image, size, href } = Astro.props;
+import Photo from "./Photo.astro";
+interface Props { title: string; location: string; services: string; image: string; src?: string; size: "large" | "small"; href?: string }
+const { title, location, services, image, src, size, href } = Astro.props;
 const Tag = href ? "a" : "article";
 ---
 <Tag href={href} class:list={["tile", `tile--${size}`]} data-reveal>
-  <ImagePlaceholder ratio={size === "large" ? "3/2" : "4/5"} tone="ink" brief={image} />
+  <Photo src={src} alt={title} ratio={size === "large" ? "3/2" : "4/5"} tone="ink" brief={image} />
   <div class="tile__meta">
     <h3 class="h3">{title}</h3>
     <p class="label muted">{location} &middot; {services}</p>

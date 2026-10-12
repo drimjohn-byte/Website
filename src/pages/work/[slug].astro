@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import Eyebrow from "../../components/Eyebrow.astro";
 import Button from "../../components/Button.astro";
 import ImagePlaceholder from "../../components/ImagePlaceholder.astro";
+import Photo from "../../components/Photo.astro";
 
 export async function getStaticPaths() {
   const projects = await getCollection("work");
@@ -19,10 +20,11 @@ const facts = [
   { label: "Year", value: String(data.year) },
   { label: "Services", value: data.services.join(", ") },
 ];
+const siteHost = data.website ? new URL(data.website).host.replace(/^www\./, "") : "";
 ---
 <Base title={data.title} description={data.summary}>
-  {data.sample && (
-    <p class="sample-banner label" role="note">Sample layout. Replace this project with real work before launch.</p>
+  {data.draft && (
+    <p class="draft-banner label" role="note">Draft. Details to confirm with the client before launch.</p>
   )}
 
   <article>
@@ -33,7 +35,7 @@ const facts = [
     </header>
 
     <div class="cs-hero">
-      <ImagePlaceholder ratio="21/9" tone="atlantic" brief={data.heroImage} />
+      <Photo src={data.heroSrc} alt={`${data.title}, ${data.location}`} ratio="21/9" tone="atlantic" brief={data.heroImage} eager />
     </div>
 
     <section class="container" aria-label="Project facts">
@@ -44,6 +46,12 @@ const facts = [
             <dd>{f.value}</dd>
           </div>
         ))}
+        {siteHost && (
+          <div class="fact">
+            <dt class="label muted">Website</dt>
+            <dd><a href={data.website} target="_blank" rel="noopener">{siteHost}</a></dd>
+          </div>
+        )}
       </dl>
     </section>
 
@@ -91,7 +99,7 @@ const facts = [
 
     <section class="section theme-atlantic next">
       <div class="container next__inner">
-        <h2 class="h1">Have a property that deserves this <em>treatment</em>?</h2>
+        <h2 class="h1">Planning a launch on the West Coast? Let&rsquo;s make it <em>count</em>.</h2>
         <Button href="/#contact">Let&rsquo;s talk</Button>
       </div>
     </section>
@@ -99,7 +107,7 @@ const facts = [
 </Base>
 
 <style>
-  .sample-banner {
+  .draft-banner {
     max-width: none;
     position: relative;
     z-index: 40;
@@ -109,7 +117,7 @@ const facts = [
     color: var(--ww-deep-ink);
     text-align: center;
   }
-  .sample-banner + article .cs-head { padding-top: var(--space-8); }
+  .draft-banner + article .cs-head { padding-top: var(--space-8); }
 
   .cs-head { padding-top: calc(4.5rem + var(--space-9)); padding-bottom: var(--space-8); display: grid; gap: var(--space-5); }
   .cs-head__summary { max-width: 48ch; }
@@ -118,10 +126,7 @@ const facts = [
   .fact { grid-column: span 2; display: grid; gap: var(--space-2); }
   .fact dd { margin: 0; }
   @media (min-width: 768px) { .fact { grid-column: span 3; } }
-  @media (min-width: 1024px) {
-    .fact { grid-column: span 2; }
-    .fact:last-child { grid-column: span 6; }
-  }
+  @media (min-width: 1024px) { .fact { grid-column: span 3; } }
 
   .prose { grid-column: 1 / -1; display: grid; gap: var(--space-5); max-width: var(--container-text); }
   @media (min-width: 1024px) { .prose { grid-column: 4 / span 7; } }

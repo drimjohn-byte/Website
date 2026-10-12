@@ -1,6 +1,6 @@
 # WESTWARD Design System
 
-Premium property marketing for agents and developers on the South African West Coast (Velddrif, Langebaan and surrounds).
+Property marketing studio based in Velddrif. Three services: development launches, listings (for agency partners), and rentals and hospitality.
 
 **Site goals, in order:** build trust, then generate qualified leads.
 **Feel:** a luxury property journal meets a high-end creative studio. Quiet confidence, not loud promotion.
@@ -136,7 +136,9 @@ A 4px base, using only these tokens: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
 ### Content sections
 11. **Hero**: a full-bleed photo, a display headline, lead copy, and primary plus text CTAs. A split variant is available for inner pages.
 12. **Statement block**: one large Playfair paragraph, used as a positioning statement.
-13. **Service row**: a numbered, image-led row (no icons) with a title, short description, "what's included" list and link. Rows alternate in a `7/5` split.
+13. **Service row**: an image-led row (no icons) with the audience, title, short description, "what's included" list, "from" price and a link to the service page. Rows alternate in a `7/5` split.
+13a. **Price**: a "From R…" figure in Playfair. While the price is unset it shows a sand "Price to confirm" label.
+13b. **Next project slot**: an outlined panel beside the real case studies inviting the next project. It replaces fake portfolio tiles.
 14. **Work grid and case study card**: asymmetric tiles with an image, project name, location and service tags.
 15. **Case study template**: a hero image, then a facts strip (client, location, services), then challenge, approach and outcome, then a gallery, results figures and a pull quote.
 16. **Results figure**: a large Playfair numeral with a small label, e.g. "42 / qualified enquiries in 30 days". Use only real, verifiable numbers.
@@ -158,8 +160,8 @@ A 4px base, using only these tokens: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
 28. **SEO and meta**: Open Graph image template (monogram, headline, photo) and `LocalBusiness` structured data with the areas served.
 
 ### Page map (proposed)
-Phase 1 (built): a single home page with Services, Work, Approach, Areas and Contact sections.
-Phase 2: Work index and case study pages, an About page and a Journal, once real projects and photography exist.
+Phase 1 (built): home page; one page per service (`/services/…`); Harbour's Edge case study (`/work/harbours-edge`).
+Phase 2: About page, more case studies and a Journal, once real projects and photography exist.
 
 ---
 
@@ -169,3 +171,6 @@ Phase 2: Work index and case study pages, an About page and a Journal, once real
 - No generic marketing icons. Services are shown through real project imagery.
 - No exclamation marks, superlatives or invented statistics.
 - One primary CTA per viewport. "LET'S TALK" is always the primary; "EXPLORE OUR WORK" is always the text-link secondary.
+
+- Never show sample or invented projects. Until there's more work, show the real case studies plus the next project slot.
+- Lead with outcomes (what the buyer gets), not adjectives.

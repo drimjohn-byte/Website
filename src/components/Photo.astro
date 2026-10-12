@@ -1,0 +1,30 @@
+---
+/* A real photograph when `src` is set, otherwise a marked placeholder describing the shot needed. */
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+interface Props {
+  src?: string;
+  alt: string;
+  brief: string;
+  ratio?: "3/2" | "4/5" | "16/9" | "21/9" | "1/1" | "fill";
+  tone?: "ink" | "atlantic" | "sand" | "stone";
+  eager?: boolean;
+}
+const { src, alt, brief, ratio = "3/2", tone, eager = false } = Astro.props;
+---
+{src ? (
+  <img
+    class:list={["photo", { "photo--fill": ratio === "fill" }]}
+    src={src}
+    alt={alt}
+    style={ratio === "fill" ? undefined : `aspect-ratio: ${ratio}`}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+  />
+) : (
+  <ImagePlaceholder ratio={ratio} tone={tone} brief={brief} />
+)}
+
+<style>
+  .photo { width: 100%; object-fit: cover; }
+  .photo--fill { height: 100%; }
+</style>

@@ -1,0 +1,16 @@
+---
+import { isTodo } from "../config/site";
+interface Props { from: string }
+const { from } = Astro.props;
+---
+{isTodo(from) ? (
+  <p class="price price--todo label">Price to confirm</p>
+) : (
+  <p class="price"><span class="label muted">From</span> <span class="price__value">{from}</span></p>
+)}
+
+<style>
+  .price { display: flex; align-items: baseline; gap: var(--space-3); }
+  .price__value { font-family: var(--font-display); font-size: var(--text-h3); }
+  .price--todo { align-self: start; padding: var(--space-2) var(--space-3); background: var(--ww-warm-sand); color: var(--ww-deep-ink); }
+</style>

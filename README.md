@@ -1,6 +1,6 @@
 # WESTWARD website
 
-Marketing site for WESTWARD, a property marketing agency for estate agents and developers on the South African West Coast.
+Marketing site for WESTWARD, a Velddrif-based property marketing studio: development launches, listings, and rentals and hospitality on the South African West Coast.
 
 Built with [Astro](https://astro.build): a static site with no client-side framework. The pages are plain HTML and CSS with small scripts, so it loads fast on mobile data and can be hosted for free on Netlify, Vercel or Cloudflare Pages.
 
@@ -23,6 +23,7 @@ npm run build    # production build in dist/
 | `src/pages/index.astro` | Home page |
 | `src/content/work/` | Case studies, one Markdown file each |
 | `src/pages/work/[slug].astro` | Case study page template |
+| `src/pages/services/[slug].astro` | One page per service (built from `services` in `site.ts`), so each can rank on its own |
 
 ## How enquiries work
 
@@ -30,20 +31,22 @@ The enquiry form does not send data to a server. When submitted, it composes the
 
 ## Adding a case study
 
-1. Copy `src/content/work/sample-project.md` and rename it, e.g. `langebaan-villa-launch.md`. The file name becomes the URL (`/work/langebaan-villa-launch`).
-2. Fill in the details at the top (client, location, services, results, quote) and write the brief, approach and outcome below them.
-3. Remove `sample: true`, which is what shows the "sample layout" banner.
-4. Link the project from the work grid in `src/pages/index.astro`.
+1. Copy `src/content/work/harbours-edge.md` and rename it, e.g. `langebaan-villa-launch.md`. The file name becomes the URL (`/work/langebaan-villa-launch`).
+2. Fill in the details at the top (client, location, services, results, quote) and write the sections below them.
+3. Put photos in `public/images/` and set `heroSrc`, e.g. `/images/langebaan-villa.jpg`.
+4. Leave out `draft: true`, which shows the "details to confirm" banner.
 
-Only use real results and quotes you have permission to publish.
+New case studies appear in the work section automatically. Only use real results and quotes you have permission to publish.
 
 ## Before launch
 
-- [ ] Set `whatsappNumber` and `email` in `src/config/site.ts`
+Every value still marked `TODO` in `src/config/site.ts` or `src/content/work/harbours-edge.md` shows on the site as a sand-coloured "to confirm" label.
+
+- [ ] Set `whatsappNumber`, `email` and the street address and postcode in `src/config/site.ts` (the address must match the Google Business Profile)
+- [ ] Set the three `priceFrom` values in `src/config/site.ts`
+- [ ] Add the Harbour's Edge aerial photo to `public/images/` and set `heroImage.src` in `site.ts` and `heroSrc` in `harbours-edge.md`
+- [ ] Fill in the Harbour's Edge case study, add the live site URL as `website`, and remove `draft: true`
+- [ ] Replace the remaining `ImagePlaceholder` blocks with real photography, or remove them
 - [ ] Set the live domain in `astro.config.mjs`
-- [ ] Replace every `ImagePlaceholder` with real photography (search the codebase for `ImagePlaceholder`; each one describes the shot it needs)
-- [ ] Delete `src/content/work/sample-project.md` once real case studies exist
-- [ ] Replace the four work tiles in `src/pages/index.astro` with real projects, or remove the section until they exist
-- [ ] Review all copy, especially service descriptions
 - [ ] Add Instagram and LinkedIn links in `src/config/site.ts`
 - [ ] Add an Open Graph share image (1200×630)

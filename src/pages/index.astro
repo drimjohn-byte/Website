@@ -1,54 +1,52 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import ServiceRow from "../components/ServiceRow.astro";
 import WorkTile from "../components/WorkTile.astro";
+import NextProject from "../components/NextProject.astro";
 import ProcessSteps from "../components/ProcessSteps.astro";
 import EnquiryForm from "../components/EnquiryForm.astro";
 import ImagePlaceholder from "../components/ImagePlaceholder.astro";
-import { site, towns, audiences, services, process } from "../config/site";
+import { site, towns, services, process, isTodo } from "../config/site";
 
-// TODO: replace with real projects. Each tile needs photography, a project name and the services delivered.
-const work = [
-  { title: "Sample project", location: "Langebaan", services: "Property Marketing", size: "large", href: "/work/sample-project", image: "Hero image of a featured listing: modern coastal residence, wide, golden hour" },
-  { title: "Project name", location: "Paternoster", services: "Brand Strategy", size: "small", image: "Brand application on site: signage or brochure against natural stone" },
-  { title: "Project name", location: "Velddrif", services: "Content Creation", size: "small", image: "Interior detail: light across textured plaster" },
-  { title: "Project name", location: "Yzerfontein", services: "Digital Advertising", size: "large", image: "Development launch: elevated view of the site and coastline, overcast" },
-] as const;
+const work = (await getCollection("work")).sort((a, b) => b.data.year - a.data.year);
 
+const address = site.address;
 const schema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: site.name,
   description: site.description,
   areaServed: towns.map((name) => ({ "@type": "City", name })),
-  email: site.email,
+  ...(!isTodo(site.email) && { email: site.email }),
+  address: {
+    "@type": "PostalAddress",
+    ...(!isTodo(address.street) && { streetAddress: address.street }),
+    addressLocality: address.town,
+    ...(!isTodo(address.postcode) && { postalCode: address.postcode }),
+    addressRegion: address.region,
+    addressCountry: address.country,
+  },
 };
 ---
 <Base header="transparent">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
 
   <Hero
-    eyebrow="West Coast property marketing"
-    lead="We help property professionals attract the right buyers, build visibility, and turn their marketing into opportunity."
-    imageBrief="Full-bleed architectural photograph: a modern West Coast home against a moody Atlantic sky, strong lines, negative space"
-  >Beautiful property. <em>Strategic</em> marketing.</Hero>
+    eyebrow="Velddrif · West Coast"
+    lead="Aerial photography, film, reels and launch websites for West Coast developments, listings and holiday rentals."
+    image={site.heroImage}
+    imageBrief="Aerial photograph of Harbour's Edge"
+  >Sell out your West Coast launch <em>faster</em>.</Hero>
 
   <!-- Positioning -->
   <section class="section intro">
-    <div class="container grid intro__grid">
+    <div class="container grid">
       <div class="intro__statement" data-reveal>
-        <Eyebrow text="Who we work with" />
-        <p class="h1 intro__text">A higher standard of property marketing for the agents and developers shaping the West Coast.</p>
-      </div>
-      <div class="intro__audiences">
-        {audiences.map((a) => (
-          <div class="audience" data-reveal>
-            <h2 class="h3">{a.title}</h2>
-            <p class="muted">{a.body}</p>
-          </div>
-        ))}
+        <Eyebrow text="What we do" />
+        <p class="h1 intro__text">The photographs, the film and the website buyers land on, made by one studio to one standard.</p>
       </div>
     </div>
   </section>
@@ -59,11 +57,11 @@ const schema = {
       <header class="section-head grid">
         <div class="section-head__title">
           <Eyebrow number="01" text="Services" />
-          <h2 id="services-title" class="h1">Everything a property needs to be <em>seen</em>, and chosen.</h2>
+          <h2 id="services-title" class="h1">Three things, done <em>properly</em>.</h2>
         </div>
       </header>
       <div class="services__list">
-        {services.map((service, i) => <ServiceRow index={i + 1} reverse={i % 2 === 1} {...service} />)}
+        {services.map((service, i) => <ServiceRow service={service} reverse={i % 2 === 1} tone={i === 1 ? "sand" : "stone"} />)}
       </div>
     </div>
   </section>
@@ -73,12 +71,23 @@ const schema = {
     <div class="container">
       <header class="section-head grid">
         <div class="section-head__title">
-          <Eyebrow number="02" text="Selected work" />
-          <h2 id="work-title" class="h1">Marketing that moves property.</h2>
+          <Eyebrow number="02" text="Work" />
+          <h2 id="work-title" class="h1">Recent work.</h2>
         </div>
       </header>
       <div class="grid work__grid">
-        {work.map((item) => <WorkTile {...item} />)}
+        {work.map((project) => (
+          <WorkTile
+            title={project.data.title}
+            location={project.data.location}
+            services={project.data.services.join(", ")}
+            image={project.data.heroImage}
+            src={project.data.heroSrc}
+            size="large"
+            href={`/work/${project.id}`}
+          />
+        ))}
+        <NextProject />
       </div>
     </div>
   </section>
@@ -91,7 +100,7 @@ const schema = {
           <Eyebrow number="03" text="Approach" />
           <h2 id="approach-title" class="h1">Considered from the first conversation.</h2>
         </div>
-        <p class="lead muted section-head__aside">Every campaign follows the same disciplined process, so the work is consistent whether it is a single listing or a full development launch.</p>
+        <p class="lead muted section-head__aside">Every project follows the same process, so the work is consistent whether it is a single listing or a full development launch.</p>
       </header>
       <ProcessSteps steps={process} />
     </div>
@@ -107,8 +116,8 @@ const schema = {
     <div class="container grid">
       <div class="areas__intro">
         <Eyebrow number="04" text="Where we work" />
-        <h2 id="areas-title" class="h2">Rooted on the West Coast.</h2>
-        <p>We know these towns, their buyers and what makes each one distinctive.</p>
+        <h2 id="areas-title" class="h2">Based in Velddrif.</h2>
+        <p>Working along the West Coast, from the Berg River mouth to Yzerfontein.</p>
       </div>
       <ul class="areas__list">
         {towns.map((town) => <li class="display">{town}</li>)}
@@ -122,7 +131,7 @@ const schema = {
       <div class="contact__intro">
         <Eyebrow number="05" text="Let’s talk" />
         <h2 id="contact-title" class="h1">Make your next move <em>count</em>.</h2>
-        <p class="lead muted">Tell us about the listing, development or brand you are working on. Your answers open as a WhatsApp message, so the conversation starts straight away.</p>
+        <p class="lead muted">Tell us about the development, listing or rental you are working on. Your answers open as a WhatsApp message, so the conversation starts straight away.</p>
         <p class="contact__direct label">
           Prefer to message directly? <a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener">WhatsApp us</a>
         </p>
@@ -143,20 +152,15 @@ const schema = {
     .section-head__aside { grid-column: 9 / span 4; }
   }
 
-  .intro__grid { row-gap: var(--space-8); }
   .intro__statement { grid-column: 1 / -1; display: grid; gap: var(--space-6); }
-  .intro__text { max-width: 22ch; }
-  .intro__audiences { grid-column: 1 / -1; display: grid; gap: var(--space-7); }
-  .audience { display: grid; gap: var(--space-3); padding-top: var(--space-5); border-top: var(--border); }
-  @media (min-width: 768px) { .intro__audiences { grid-template-columns: 1fr 1fr; gap: var(--grid-gap); } }
-  @media (min-width: 1024px) {
-    .intro__statement { grid-column: 1 / span 9; }
-    .intro__audiences { grid-column: 4 / span 9; }
-  }
+  .intro__text { max-width: 24ch; }
+  @media (min-width: 1024px) { .intro__statement { grid-column: 1 / span 10; } }
 
   .services__list { display: grid; gap: clamp(var(--space-8), 8vw, var(--space-11)); }
 
   .work__grid { row-gap: var(--space-8); }
+  .work__grid :global(.tile--large) { align-self: start; }
+  @media (min-width: 1024px) { .work__grid :global(.tile--large) { grid-column: 1 / span 7; } }
 
   .areas { padding-block: var(--space-9); }
   .areas .grid { row-gap: var(--space-7); }

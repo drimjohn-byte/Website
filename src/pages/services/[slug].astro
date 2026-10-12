@@ -1,0 +1,100 @@
+---
+import Base from "../../layouts/Base.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Button from "../../components/Button.astro";
+import Photo from "../../components/Photo.astro";
+import Price from "../../components/Price.astro";
+import ProcessSteps from "../../components/ProcessSteps.astro";
+import { services, process, towns, site } from "../../config/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+---
+<Base title={service.seoTitle} description={`${service.summary} Based in ${site.address.town}, working across ${towns.join(", ")}.`}>
+  <article>
+    <header class="svc-head container grid">
+      <div class="svc-head__text">
+        <Eyebrow text={service.audience} />
+        <h1 class="display">{service.title}</h1>
+        <p class="lead muted">{service.summary}</p>
+        <Price from={service.priceFrom} />
+        <div class="svc-head__actions">
+          <Button href="/#contact">Let&rsquo;s talk</Button>
+          <Button href="/work/harbours-edge" variant="text">See the Harbour&rsquo;s Edge launch</Button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container svc-media">
+      <Photo ratio="21/9" tone="atlantic" alt="" brief={service.image} eager />
+    </div>
+
+    <section class="section">
+      <div class="container grid svc-body">
+        <div class="svc-body__outcome">
+          <Eyebrow text="What you get" />
+          <p class="h2">{service.outcome}</p>
+        </div>
+        <ul class="svc-body__list">
+          {service.includes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section theme-sand" aria-labelledby="how-title">
+      <div class="container">
+        <h2 id="how-title" class="h2 svc-how">How it works</h2>
+        <ProcessSteps steps={process} />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container svc-areas">
+        <p class="label muted">Based in {site.address.town}. Working across</p>
+        <p class="h3">{towns.join(" · ")}</p>
+      </div>
+    </section>
+
+    <nav class="section theme-ink" aria-label="Other services">
+      <div class="container grid svc-others">
+        <p class="label muted svc-others__label">Other services</p>
+        {others.map((s) => (
+          <a class="svc-others__link" href={`/services/${s.slug}`}>
+            <span class="label muted">{s.audience}</span>
+            <span class="h2">{s.title}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .svc-head { padding-top: calc(4.5rem + var(--space-9)); padding-bottom: var(--space-8); }
+  .svc-head__text { grid-column: 1 / -1; display: grid; gap: var(--space-5); justify-items: start; }
+  @media (min-width: 1024px) { .svc-head__text { grid-column: 1 / span 9; } }
+  .svc-head__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-7); margin-top: var(--space-3); }
+
+  .svc-body { row-gap: var(--space-7); }
+  .svc-body__outcome { grid-column: 1 / -1; display: grid; gap: var(--space-5); }
+  .svc-body__list { grid-column: 1 / -1; list-style: none; padding: 0; border-top: var(--border); }
+  .svc-body__list li { padding-block: var(--space-4); border-bottom: var(--border); }
+  @media (min-width: 1024px) {
+    .svc-body__outcome { grid-column: 1 / span 6; }
+    .svc-body__list { grid-column: 8 / span 5; }
+  }
+
+  .svc-how { margin-bottom: var(--space-7); }
+  .svc-areas { display: grid; gap: var(--space-3); }
+
+  .svc-others { row-gap: var(--space-6); }
+  .svc-others__label { grid-column: 1 / -1; }
+  .svc-others__link { grid-column: 1 / -1; display: grid; gap: var(--space-2); padding-top: var(--space-5); border-top: var(--border); text-decoration: none; }
+  .svc-others__link:hover .h2 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+  @media (min-width: 768px) { .svc-others__link { grid-column: span 3; } }
+  @media (min-width: 1024px) { .svc-others__link { grid-column: span 6; } }
+</style>
