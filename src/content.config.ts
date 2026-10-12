@@ -16,7 +16,15 @@ const work = defineCollection({
     heroImage: z.string(), // shot brief, shown until heroSrc is set
     heroSrc: z.string().default(""), // e.g. "/images/harbours-edge-aerial.jpg" in public/
     website: z.string().default(""), // live URL of a site we built, if any
-    gallery: z.array(z.string()).default([]),
+    // Each item is either a shot brief (shown as a placeholder) or a real image.
+    gallery: z
+      .array(
+        z.union([
+          z.string(),
+          z.object({ src: z.string(), alt: z.string(), ratio: z.enum(["3/2", "4/5", "phone"]).default("3/2") }),
+        ]),
+      )
+      .default([]),
     results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
     quote: z.object({ text: z.string(), name: z.string(), role: z.string() }).optional(),
     // Drafts show a banner until the details are confirmed with the client.

@@ -39,11 +39,15 @@ const { eyebrow, lead, image, imageBrief, secondary = { label: "See the Harbourâ
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(26, 31, 28, 0.15) 0%, rgba(26, 31, 28, 0) 35%, rgba(26, 31, 28, 0.75) 100%);
+    /* Darkens the top for the header and the lower left for the headline, so text holds up over bright sand */
+    background:
+      linear-gradient(180deg, rgba(26, 31, 28, 0.45) 0%, rgba(26, 31, 28, 0) 22%),
+      linear-gradient(75deg, rgba(26, 31, 28, 0.82) 0%, rgba(26, 31, 28, 0.55) 45%, rgba(26, 31, 28, 0.1) 80%),
+      linear-gradient(0deg, rgba(26, 31, 28, 0.55) 0%, rgba(26, 31, 28, 0) 50%);
   }
   .hero__text { grid-column: 1 / -1; display: grid; gap: var(--space-5); }
   @media (min-width: 1024px) { .hero__text { grid-column: 1 / span 9; } }
-  .hero__eyebrow { color: var(--ww-warm-sand); }
-  .hero__lead { color: var(--ww-salt-white); opacity: 0.88; max-width: 44ch; }
+  .hero__eyebrow { color: var(--ww-salt-white); opacity: 0.85; }
+  .hero__lead { color: var(--ww-salt-white); max-width: 44ch; }
   .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-7); margin-top: var(--space-4); }
 </style>

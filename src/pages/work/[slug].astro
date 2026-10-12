@@ -63,11 +63,25 @@ const siteHost = data.website ? new URL(data.website).host.replace(/^www\./, "")
 
     {data.gallery.length > 0 && (
       <section class="container gallery" aria-label="Gallery">
-        {data.gallery.map((brief, i) => (
-          <div class:list={["gallery__item", `gallery__item--${i % 4}`]} data-reveal>
-            <ImagePlaceholder ratio={i % 4 === 1 || i % 4 === 2 ? "4/5" : "3/2"} tone={i % 2 ? "sand" : "stone"} brief={brief} />
-          </div>
-        ))}
+        {data.gallery.map((item, i) => {
+          const ratio = i % 4 === 1 || i % 4 === 2 ? "4/5" : "3/2";
+          if (typeof item === "string") {
+            return (
+              <div class:list={["gallery__item", `gallery__item--${i % 4}`]} data-reveal>
+                <ImagePlaceholder ratio={ratio} tone={i % 2 ? "sand" : "stone"} brief={item} />
+              </div>
+            );
+          }
+          return item.ratio === "phone" ? (
+            <figure class:list={["gallery__item", `gallery__item--${i % 4}`, "gallery__phone"]} data-reveal>
+              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+            </figure>
+          ) : (
+            <div class:list={["gallery__item", `gallery__item--${i % 4}`]} data-reveal>
+              <Photo src={item.src} alt={item.alt} ratio={item.ratio} brief={item.alt} />
+            </div>
+          );
+        })}
       </section>
     )}
 
@@ -136,6 +150,8 @@ const siteHost = data.website ? new URL(data.website).host.replace(/^www\./, "")
 
   .gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); padding-bottom: var(--section-y); }
   .gallery__item { grid-column: 1 / -1; }
+  .gallery__phone { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
+  .gallery__phone img { width: min(100%, 22rem); height: auto; border: 1px solid var(--color-line); box-shadow: 0 1px 0 var(--color-line); }
   @media (min-width: 768px) {
     .gallery__item--0 { grid-column: 1 / span 12; }
     .gallery__item--1 { grid-column: 1 / span 5; }

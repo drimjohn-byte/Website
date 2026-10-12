@@ -3,16 +3,24 @@
 title: Harbour's Edge
 location: Laaiplek, Velddrif
 client: Harbour's Edge
-clientType: Developer
+clientType: Developer # TODO: confirm whether the client is the developer or the homeowners association
 # Only list what WESTWARD made. Add "Aerial photography" back only if WESTWARD shot the aerials.
-services: [Launch website, Instagram reels]
+services: [Website, Instagram reels]
 year: 2026
-summary: A launch website and Instagram reels for Harbour's Edge in Laaiplek, Velddrif.
+summary: A website and Instagram reels for Harbour's Edge, a new coastal development in Laaiplek, Velddrif.
 heroImage: Aerial photograph of Harbour's Edge
-heroSrc: ""
-website: ""
+# TODO: these are cleaned-up screen grabs from the live site. Swap in the original files for launch, and confirm who shot the aerials.
+heroSrc: /images/harbours-edge-aerial-plots.jpg
+website: https://harboursedge.co.za/
 gallery:
-  - Harbour's Edge launch website, desktop and phone
+  - src: /images/harbours-edge-aerial-breakwater.jpg
+    alt: Aerial view of the Laaiplek harbour breakwater
+  - src: /images/harbours-edge-site-mobile.jpg
+    alt: The Harbour's Edge website home page on a phone
+    ratio: phone
+  - src: /images/harbours-edge-site-mobile-2.jpg
+    alt: The Harbour's Edge website hero, showing the plots and beach from the air
+    ratio: phone
   - Still from an Instagram reel
 results: []
 draft: true
@@ -24,7 +32,7 @@ TODO: two or three sentences on what Harbour's Edge needed and why.
 
 ## What we made
 
-TODO: the launch website, the Instagram reels, and anything else WESTWARD delivered.
+TODO: the website, the Instagram reels, and anything else WESTWARD delivered.
 
 ## The outcome
 

@@ -21,7 +21,7 @@ export const site = {
   linkedin: "",
 
   // Hero photograph. Put the file in public/images/ and set src, e.g. "/images/harbours-edge-aerial.jpg".
-  heroImage: { src: "", alt: "Aerial view of Harbour's Edge on the West Coast" },
+  heroImage: { src: "/images/harbours-edge-aerial-plots.jpg", alt: "Aerial view of Harbour's Edge in Laaiplek: new roads and plots beside the beach and harbour" },
 };
 
 export const towns = ["Velddrif", "Langebaan", "Paternoster", "Saldanha", "Yzerfontein"];

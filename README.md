@@ -44,8 +44,8 @@ Every value still marked `TODO` in `src/config/site.ts` or `src/content/work/har
 
 - [ ] Set `whatsappNumber`, `email` and the street address and postcode in `src/config/site.ts` (the address must match the Google Business Profile)
 - [ ] Replace "On quote" for development launches with a "from" price once one is set (`priceFrom` in `src/config/site.ts`)
-- [ ] Add the Harbour's Edge aerial photo to `public/images/` and set `heroImage.src` in `site.ts` and `heroSrc` in `harbours-edge.md`
-- [ ] Fill in the Harbour's Edge case study, add the live site URL as `website`, and remove `draft: true`
+- [ ] Replace the Harbour's Edge images in `public/images/` with the original files. The current ones are cleaned-up screen grabs from harboursedge.co.za at 1125px wide, which look soft on large screens (keep the same file names, or update `heroImage.src` in `site.ts` and the paths in `harbours-edge.md`)
+- [ ] Fill in the Harbour's Edge case study (brief, what we made, outcome, client type) and remove `draft: true`
 - [ ] Confirm who shot the Harbour's Edge aerials. If WESTWARD did, add "Aerial photography" back to its `services`; if not, get permission and a photo credit before using the aerial as the hero
 - [ ] Replace the remaining `ImagePlaceholder` blocks with real photography, or remove them
 - [ ] Set the live domain in `astro.config.mjs` (canonical and `og:url` tags are left out until it is set)
