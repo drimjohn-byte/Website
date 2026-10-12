@@ -3,7 +3,7 @@ import Wordmark from "./Wordmark.astro";
 import Button from "./Button.astro";
 import { nav } from "../config/site";
 ---
-<header class="header" data-header>
+<header class="header" data-site-header>
   <div class="container header__inner">
     <a href="/" class="header__brand" aria-label="WESTWARD home"><Wordmark /></a>
 
@@ -85,7 +85,7 @@ import { nav } from "../config/site";
 </style>
 
 <script>
-  const header = document.querySelector<HTMLElement>("[data-header]")!;
+  const header = document.querySelector<HTMLElement>("[data-site-header]")!;
   const toggle = header.querySelector<HTMLButtonElement>("[data-menu-toggle]")!;
   const label = header.querySelector<HTMLElement>("[data-menu-label]")!;
   const menu = header.querySelector<HTMLElement>("[data-menu]")!;

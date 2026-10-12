@@ -1,0 +1,151 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Button from "../../components/Button.astro";
+import ImagePlaceholder from "../../components/ImagePlaceholder.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("work");
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const facts = [
+  { label: "Client", value: data.client },
+  { label: "Location", value: data.location },
+  { label: "Year", value: String(data.year) },
+  { label: "Services", value: data.services.join(", ") },
+];
+---
+<Base title={data.title} description={data.summary}>
+  {data.sample && (
+    <p class="sample-banner label" role="note">Sample layout. Replace this project with real work before launch.</p>
+  )}
+
+  <article>
+    <header class="cs-head container">
+      <Eyebrow text={`${data.clientType} · ${data.location}`} />
+      <h1 class="display cs-head__title">{data.title}</h1>
+      <p class="lead muted cs-head__summary">{data.summary}</p>
+    </header>
+
+    <div class="cs-hero">
+      <ImagePlaceholder ratio="21/9" tone="atlantic" brief={data.heroImage} />
+    </div>
+
+    <section class="container" aria-label="Project facts">
+      <dl class="facts grid">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt class="label muted">{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="section">
+      <div class="container grid">
+        <div class="prose" data-reveal><Content /></div>
+      </div>
+    </section>
+
+    {data.gallery.length > 0 && (
+      <section class="container gallery" aria-label="Gallery">
+        {data.gallery.map((brief, i) => (
+          <div class:list={["gallery__item", `gallery__item--${i % 4}`]} data-reveal>
+            <ImagePlaceholder ratio={i % 4 === 1 || i % 4 === 2 ? "4/5" : "3/2"} tone={i % 2 ? "sand" : "stone"} brief={brief} />
+          </div>
+        ))}
+      </section>
+    )}
+
+    {data.results.length > 0 && (
+      <section class="section theme-ink" aria-labelledby="results-title">
+        <div class="container">
+          <Eyebrow text="Results" />
+          <h2 id="results-title" class="visually-hidden">Results</h2>
+          <dl class="results">
+            {data.results.map((r) => (
+              <div class="result" data-reveal>
+                <dt class="label muted">{r.label}</dt>
+                <dd class="display result__value">{r.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )}
+
+    {data.quote && (
+      <section class="section">
+        <figure class="container quote" data-reveal>
+          <blockquote><p>&ldquo;{data.quote.text.replace(/^"|"$/g, "")}&rdquo;</p></blockquote>
+          <figcaption class="label muted">{data.quote.name}, {data.quote.role}</figcaption>
+        </figure>
+      </section>
+    )}
+
+    <section class="section theme-atlantic next">
+      <div class="container next__inner">
+        <h2 class="h1">Have a property that deserves this <em>treatment</em>?</h2>
+        <Button href="/#contact">Let&rsquo;s talk</Button>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .sample-banner {
+    max-width: none;
+    position: relative;
+    z-index: 40;
+    margin-top: 4.5rem;
+    padding: var(--space-3) var(--gutter);
+    background: var(--ww-warm-sand);
+    color: var(--ww-deep-ink);
+    text-align: center;
+  }
+  .sample-banner + article .cs-head { padding-top: var(--space-8); }
+
+  .cs-head { padding-top: calc(4.5rem + var(--space-9)); padding-bottom: var(--space-8); display: grid; gap: var(--space-5); }
+  .cs-head__summary { max-width: 48ch; }
+
+  .facts { row-gap: var(--space-5); padding-block: var(--space-6); border-bottom: var(--border); }
+  .fact { grid-column: span 2; display: grid; gap: var(--space-2); }
+  .fact dd { margin: 0; }
+  @media (min-width: 768px) { .fact { grid-column: span 3; } }
+  @media (min-width: 1024px) {
+    .fact { grid-column: span 2; }
+    .fact:last-child { grid-column: span 6; }
+  }
+
+  .prose { grid-column: 1 / -1; display: grid; gap: var(--space-5); max-width: var(--container-text); }
+  @media (min-width: 1024px) { .prose { grid-column: 4 / span 7; } }
+  .prose :global(h2) { font-size: var(--text-h2); margin-top: var(--space-6); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p) { color: var(--color-text-muted); font-size: var(--text-lead); font-weight: var(--weight-light); }
+
+  .gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); padding-bottom: var(--section-y); }
+  .gallery__item { grid-column: 1 / -1; }
+  @media (min-width: 768px) {
+    .gallery__item--0 { grid-column: 1 / span 12; }
+    .gallery__item--1 { grid-column: 1 / span 5; }
+    .gallery__item--2 { grid-column: 7 / span 6; margin-top: var(--space-10); }
+    .gallery__item--3 { grid-column: 3 / span 10; }
+  }
+
+  .results { display: grid; gap: var(--space-7) var(--grid-gap); margin-top: var(--space-7); }
+  @media (min-width: 768px) { .results { grid-template-columns: repeat(3, 1fr); } }
+  .result { display: flex; flex-direction: column-reverse; gap: var(--space-3); padding-top: var(--space-5); border-top: var(--border); }
+  .result__value { margin: 0; color: var(--ww-warm-sand); font-size: var(--text-display); }
+
+  .quote { display: grid; gap: var(--space-6); max-width: calc(980px + 2 * var(--gutter)); }
+  .quote blockquote p { font-family: var(--font-display); font-style: italic; font-size: var(--text-quote); line-height: var(--leading-quote); max-width: none; }
+
+  .next__inner { display: grid; gap: var(--space-7); justify-items: start; }
+  .next h2 { max-width: 18ch; }
+</style>
