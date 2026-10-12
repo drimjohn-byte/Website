@@ -14,8 +14,8 @@ const { steps } = Astro.props;
 
 <style>
   .steps { list-style: none; padding: 0; display: grid; gap: var(--space-7) var(--grid-gap); grid-template-columns: 1fr; }
-  @media (min-width: 640px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1024px) { .steps { grid-template-columns: repeat(5, 1fr); } }
+  @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .steps { grid-template-columns: repeat(3, 1fr); } }
   .step { display: grid; gap: var(--space-3); align-content: start; padding-top: var(--space-5); border-top: var(--border); }
   .step__number { font-size: var(--text-h1); color: var(--color-accent); line-height: 1; }
 </style>

@@ -116,7 +116,7 @@ A 4px base, using only these tokens: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
 ## 4. Components
 
 ### Foundations
-1. **Wordmark**: WESTWARD with an optional "PROPERTY MARKETING AGENCY" line. Ink and ivory variants.
+1. **Wordmark**: WESTWARD with an optional "PROPERTY MARKETING STUDIO" line. Ink and ivory variants.
 2. **Monogram**: the W mark, used for the favicon, social links and loading states.
 3. **Eyebrow label**: uppercase label with an optional section number, e.g. `01 — SERVICES`.
 4. **Button**:

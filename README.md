@@ -43,9 +43,10 @@ New case studies appear in the work section automatically. Only use real results
 Every value still marked `TODO` in `src/config/site.ts` or `src/content/work/harbours-edge.md` shows on the site as a sand-coloured "to confirm" label.
 
 - [ ] Set `whatsappNumber`, `email` and the street address and postcode in `src/config/site.ts` (the address must match the Google Business Profile)
-- [ ] Set the three `priceFrom` values in `src/config/site.ts`
+- [ ] Replace "On quote" for development launches with a "from" price once one is set (`priceFrom` in `src/config/site.ts`)
 - [ ] Add the Harbour's Edge aerial photo to `public/images/` and set `heroImage.src` in `site.ts` and `heroSrc` in `harbours-edge.md`
 - [ ] Fill in the Harbour's Edge case study, add the live site URL as `website`, and remove `draft: true`
+- [ ] Confirm who shot the Harbour's Edge aerials. If WESTWARD did, add "Aerial photography" back to its `services`; if not, get permission and a photo credit before using the aerial as the hero
 - [ ] Replace the remaining `ImagePlaceholder` blocks with real photography, or remove them
 - [ ] Set the live domain in `astro.config.mjs`
 - [ ] Add Instagram and LinkedIn links in `src/config/site.ts`

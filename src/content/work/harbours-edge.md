@@ -1,18 +1,19 @@
 ---
 # TODO: confirm every field below with the client, then remove `draft: true`.
 title: Harbour's Edge
-location: West Coast
+location: Laaiplek, Velddrif
 client: Harbour's Edge
 clientType: Developer
-services: [Launch website, Aerial photography]
+# Only list what WESTWARD made. Add "Aerial photography" back only if WESTWARD shot the aerials.
+services: [Launch website, Instagram reels]
 year: 2026
-summary: A launch website and aerial photography for Harbour's Edge.
+summary: A launch website and Instagram reels for Harbour's Edge in Laaiplek, Velddrif.
 heroImage: Aerial photograph of Harbour's Edge
 heroSrc: ""
 website: ""
 gallery:
   - Harbour's Edge launch website, desktop and phone
-  - Aerial photograph of the site
+  - Still from an Instagram reel
 results: []
 draft: true
 ---
@@ -23,7 +24,7 @@ TODO: two or three sentences on what Harbour's Edge needed and why.
 
 ## What we made
 
-TODO: the launch website, the aerial shoot, and anything else delivered.
+TODO: the launch website, the Instagram reels, and anything else WESTWARD delivered.
 
 ## The outcome
 
