@@ -6,7 +6,7 @@ import { site, services, isTodo } from "../config/site";
 
 interface Props { title?: string; description?: string }
 const { title, description = site.description } = Astro.props;
-const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | Websites, Google Business Profile and social setup in ${site.serviceArea}`;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | Websites for suite barbers in ${site.serviceArea}`;
 // The domain is a placeholder until launch; leave canonical and og:url out rather than point at it.
 const hasDomain = Astro.site && Astro.site.hostname !== "example.com";
 const canonical = hasDomain ? new URL(Astro.url.pathname, Astro.site) : undefined;

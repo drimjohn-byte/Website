@@ -1,16 +1,17 @@
 ---
 import Button from "./Button.astro";
 import Icon from "./Icon.astro";
-import { site, promises } from "../config/site";
+import { site, promises, bookingApps } from "../config/site";
 ---
 <section class="hero">
   <div class="container hero__grid">
     <div class="hero__copy">
-      <p class="eyebrow">For small businesses across {site.serviceArea}</p>
-      <h1 class="display">Get your business <span class="hero__hl">found</span> online.</h1>
+      <p class="eyebrow">For barbers with their own suite in {site.serviceArea}</p>
+      <h1 class="display">Your chair. Your name. Your <span class="hero__hl">brand.</span></h1>
       <p class="lead">
-        We build your website and set up your Google Business Profile, Google Analytics and social media,
-        so customers nearby can find you, trust you and call you. Flat prices. Everything in your name.
+        You've got the clients and the suite. Now get a website with your name on it: your cuts up front,
+        your prices, where to find you, and a Book button that goes straight to your booking app.
+        Then we set up Google and Instagram to bring in new clients.
       </p>
       <div class="hero__ctas">
         <Button href={site.bookingUrl || "/#contact"} arrow>Book a free 15-minute call</Button>
@@ -21,73 +22,94 @@ import { site, promises } from "../config/site";
       </ul>
     </div>
 
-    <!-- Illustration of the end result: a local search, a business profile and an analytics card -->
+    <!-- Illustration of the end result: a barber's own site on a phone, found on Google, sending bookings -->
     <div class="hero__art" aria-hidden="true">
       <div class="art-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
-        <span>plumber near me</span>
+        <span>barber near me</span>
       </div>
-      <div class="art-profile">
-        <div class="art-map">
-          <span class="art-map__road art-map__road--a"></span>
-          <span class="art-map__road art-map__road--b"></span>
-          <span class="art-map__pin"><Icon name="pin" /></span>
-        </div>
-        <div class="art-profile__body">
-          <p class="art-profile__name">Your Business</p>
-          <p class="art-profile__stars"><span>★★★★★</span> Plumber · Open now</p>
-          <div class="art-profile__actions">
-            <span><Icon name="phone" />Call</span>
-            <span><Icon name="pin" />Directions</span>
-            <span><Icon name="website" />Website</span>
+
+      <div class="art-phone">
+        <div class="art-site">
+          <div class="art-site__head">
+            <p class="art-site__name">YOUR NAME</p>
+            <p class="art-site__sub">Barber · Suite 12</p>
           </div>
+          <div class="art-site__gallery">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <ul class="art-site__menu">
+            <li><span>Skin fade</span><span>$45</span></li>
+            <li><span>Cut and beard</span><span>$60</span></li>
+            <li><span>Line-up</span><span>$20</span></li>
+          </ul>
+          <span class="art-site__book">Book now</span>
         </div>
       </div>
-      <div class="art-stats">
-        <p>Calls from Google</p>
-        <div class="art-bars"><span style="--h:30%"></span><span style="--h:42%"></span><span style="--h:38%"></span><span style="--h:58%"></span><span style="--h:66%"></span><span style="--h:82%"></span><span style="--h:100%"></span></div>
+
+      <div class="art-toast">
+        <span class="art-toast__icon"><Icon name="check" /></span>
+        <div><p class="art-toast__title">New booking</p><p class="art-toast__meta">Fri, 2:30 pm · Skin fade</p></div>
       </div>
     </div>
+  </div>
+
+  <div class="container apps">
+    <p>Works with the booking app you already use:</p>
+    <ul role="list">{bookingApps.map((app) => <li>{app}</li>)}</ul>
   </div>
 </section>
 
 <style>
-  .hero { padding-block: clamp(var(--space-7), 2rem + 5vw, var(--space-9)) var(--section-y); overflow: hidden; }
-  .hero__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-8); align-items: center; }
+  .hero { padding-block: clamp(var(--space-7), 2rem + 5vw, var(--space-9)) var(--space-8); overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-8); align-items: center; }
   .hero__copy { display: grid; gap: var(--space-5); justify-items: start; }
   .hero__hl { position: relative; white-space: nowrap; }
-  .hero__hl::after { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: 0.04em; height: 0.22em; background: var(--sl-signal); border-radius: 0.1em; z-index: -1; }
+  .hero__hl::after { content: ""; position: absolute; left: -0.04em; right: 0.2em; bottom: 0.04em; height: 0.22em; background: var(--sl-signal); border-radius: 0.1em; z-index: -1; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
   .hero__promises { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); font-size: var(--text-small); font-weight: 500; }
   .hero__promises li { display: inline-flex; align-items: center; gap: var(--space-1); }
   .hero__promises .icon { color: var(--sl-go); }
 
-  .hero__art { position: relative; display: grid; gap: var(--space-4); padding: var(--space-6); background: var(--sl-sky); border-radius: var(--radius-lg); }
-  .hero__art > * { background: var(--color-surface); border-radius: var(--radius); box-shadow: var(--shadow); }
-  .art-search { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-radius: var(--radius-pill); font-size: 0.9375rem; }
-  .art-search svg { width: 1.125rem; color: var(--sl-ink-soft); }
-  .art-profile { overflow: hidden; box-shadow: var(--shadow-lg); transform: rotate(-1.5deg); }
-  .art-map { position: relative; height: 7.5rem; background: #E8EEF3; overflow: hidden; }
-  .art-map__road { position: absolute; background: #fff; }
-  .art-map__road--a { left: -10%; right: -10%; top: 45%; height: 12px; transform: rotate(-8deg); }
-  .art-map__road--b { top: -10%; bottom: -10%; left: 62%; width: 10px; transform: rotate(14deg); }
-  .art-map__pin { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -70%); color: var(--sl-signal); }
-  .art-map__pin .icon { width: 2.5rem; height: 2.5rem; fill: var(--sl-signal); stroke: #fff; stroke-width: 1.25; }
-  .art-profile__body { padding: var(--space-4) var(--space-5) var(--space-5); display: grid; gap: var(--space-1); }
-  .art-profile__name { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; }
-  .art-profile__stars { font-size: var(--text-small); color: var(--sl-ink-soft); }
-  .art-profile__stars span { color: #E8A317; letter-spacing: 0.05em; }
-  .art-profile__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
-  .art-profile__actions span { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.75rem; border: 1px solid var(--color-line); border-radius: var(--radius-pill); font-size: 0.8125rem; font-weight: 500; color: #1A56B8; }
-  .art-profile__actions .icon { width: 1rem; height: 1rem; }
-  .art-stats { justify-self: end; width: min(15rem, 80%); padding: var(--space-4) var(--space-5); margin-top: calc(var(--space-6) * -1); position: relative; }
-  .art-stats p { font-size: var(--text-small); font-weight: 600; margin-bottom: var(--space-3); }
-  .art-bars { display: flex; align-items: end; gap: 6px; height: 3.5rem; }
-  .art-bars span { flex: 1; height: var(--h); background: var(--sl-go); border-radius: 3px 3px 0 0; opacity: 0.35; }
-  .art-bars span:last-child { opacity: 1; }
+  /* Illustration */
+  .hero__art { position: relative; display: grid; justify-items: center; padding: var(--space-8) var(--space-6) var(--space-9); background: var(--sl-sky); border-radius: var(--radius-lg); }
+  .art-search { position: absolute; top: var(--space-5); left: var(--space-5); display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); background: #fff; border-radius: var(--radius-pill); box-shadow: var(--shadow); font-size: 0.875rem; z-index: 2; }
+  .art-search svg { width: 1rem; color: var(--sl-ink-soft); }
+
+  .art-phone { width: min(17rem, 100%); padding: 0.6rem; background: var(--sl-ink); border-radius: 2.25rem; box-shadow: var(--shadow-lg); transform: rotate(2deg); }
+  .art-site { display: grid; gap: var(--space-4); padding: var(--space-5) var(--space-4) var(--space-4); background: #14161A; color: #F4F1EA; border-radius: 1.75rem; }
+  .art-site__head { text-align: center; }
+  .art-site__name { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: 0.08em; line-height: 1; }
+  .art-site__sub { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #A8A49A; margin-top: var(--space-1); }
+  .art-site__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .art-site__gallery span { aspect-ratio: 1; border-radius: 6px; background: linear-gradient(160deg, #3B3F47, #23262C); position: relative; overflow: hidden; }
+  /* Abstract head-and-fade shape in each tile */
+  .art-site__gallery span::before { content: ""; position: absolute; left: 28%; right: 28%; top: 22%; bottom: 8%; border-radius: 45% 45% 40% 40%; background: linear-gradient(180deg, #111 0 38%, #6B5446 38% 100%); opacity: 0.9; }
+  .art-site__gallery span:nth-child(2n)::before { background: linear-gradient(180deg, #111 0 30%, #8A6A55 30% 100%); }
+  .art-site__gallery span:nth-child(3n)::before { background: linear-gradient(180deg, #1E1E1E 0 44%, #4E3B30 44% 100%); }
+  .art-site__menu { list-style: none; padding: 0; display: grid; gap: var(--space-2); font-size: 0.8125rem; }
+  .art-site__menu li { display: flex; justify-content: space-between; padding-bottom: var(--space-2); border-bottom: 1px solid rgba(244, 241, 234, 0.12); }
+  .art-site__menu li span:last-child { font-weight: 600; }
+  .art-site__book { display: block; padding: 0.7rem; border-radius: var(--radius-pill); background: var(--sl-signal); color: var(--sl-ink); text-align: center; font-weight: 700; font-size: 0.875rem; }
+
+  .art-toast { position: absolute; right: var(--space-4); bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-lg); z-index: 2; }
+  .art-toast__icon { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--sl-go); color: #fff; }
+  .art-toast__icon .icon { stroke-width: 2.5; width: 1.1rem; height: 1.1rem; }
+  .art-toast__title { font-weight: 700; font-size: 0.875rem; }
+  .art-toast__meta { font-size: 0.75rem; color: var(--sl-ink-soft); }
+
+  /* Booking apps strip */
+  .apps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--color-line); font-size: var(--text-small); color: var(--color-text-muted); }
+  .apps ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); }
+  .apps li { font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem; color: var(--color-text); opacity: 0.75; }
 
   @media (max-width: 900px) {
     .hero__grid { grid-template-columns: 1fr; gap: var(--space-7); }
-    .hero__art { padding: var(--space-5); }
+  }
+  @media (max-width: 520px) {
+    .hero__art { padding: var(--space-9) var(--space-4) 7.5rem; }
+    .art-search { left: 50%; transform: translateX(-50%); white-space: nowrap; }
+    .art-toast { right: 50%; transform: translateX(50%); bottom: var(--space-5); }
+    .art-toast p { white-space: nowrap; }
   }
 </style>

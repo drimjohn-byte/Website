@@ -4,7 +4,8 @@ import type { Service } from "../config/site";
 interface Props { service: Service }
 const { service } = Astro.props;
 ---
-<article class="card" data-reveal>
+<article class:list={["card", service.badge && "card--featured"]} data-reveal>
+  {service.badge && <p class="card__badge">{service.badge}</p>}
   <span class="card__icon"><Icon name={service.icon} /></span>
   <h3>{service.title}</h3>
   <p class="muted">{service.short}</p>
@@ -20,6 +21,8 @@ const { service } = Astro.props;
 <style>
   .card { position: relative; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius); transition: box-shadow var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease); }
   .card:hover { box-shadow: var(--shadow-lg); }
+  .card--featured { border: 2px solid var(--sl-signal); box-shadow: var(--shadow); }
+  .card__badge { position: absolute; top: var(--space-5); right: var(--space-5); padding: 0.2rem 0.7rem; border-radius: var(--radius-pill); background: var(--sl-signal); color: var(--sl-ink); font-size: var(--text-label); font-weight: 700; }
   .card__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 14px; background: color-mix(in srgb, var(--sl-signal) 14%, transparent); color: var(--sl-signal-deep); margin-bottom: var(--space-2); }
   .card__icon .icon { width: 1.5rem; height: 1.5rem; }
   .card__list { display: grid; gap: var(--space-2); font-size: var(--text-small); margin-block: var(--space-2) var(--space-4); }

@@ -6,13 +6,13 @@ export const TODO = "TODO";
 
 export const site = {
   name: "Signal Local",
-  tagline: "Get your business found online.",
+  tagline: "Your chair. Your name. Your brand.",
   description:
-    "Signal Local sets up everything a small business in Ontario needs to be found online: a fast website, Google Business Profile, Google Analytics and social media profiles. Flat prices, and every account is in your name.",
+    "Signal Local builds websites for barbers who run their own suite in Ontario. A site with your name on it, your cuts up front and a Book button that goes straight to your booking app, then Google and Instagram set up to bring in new clients.",
 
   // TODO: real contact details.
   email: TODO,
-  // Display format, e.g. "(416) 555-0123". Used for tel: and sms: links.
+  // Display format, e.g. "(416) 555-0123". Used for tel: links.
   phone: TODO,
   // TODO: home base. Set the city exactly as it appears on the Google Business Profile.
   address: { city: TODO, region: "ON", country: "CA" },
@@ -34,14 +34,19 @@ export const nav = [
   { label: "FAQ", href: "/#faq" },
 ];
 
+// Booking apps the website and profiles link to. Shown as plain text, not logos.
+export const bookingApps = ["Booksy", "Squire", "Fresha", "Vagaro", "Square Appointments", "StyleSeat"];
+
 export type Service = {
   slug: string;
   title: string;
+  // Optional label on the card, e.g. "Start here".
+  badge?: string;
   short: string;
   summary: string;
   outcome: string;
   includes: string[];
-  // What we need from the client to get started.
+  // What we need from the barber to get started.
   needs: string[];
   price: string;
   priceNote?: string;
@@ -52,155 +57,161 @@ export type Service = {
   faq: { q: string; a: string }[];
 };
 
-// Prices are in Canadian dollars, before HST.
+// Prices are in Canadian dollars, before HST. The website comes first; the rest are add-ons.
 export const services: Service[] = [
   {
-    slug: "website",
-    title: "Website",
-    short: "A fast, mobile-first site that turns visitors into calls.",
+    slug: "barber-website",
+    title: "Your website",
+    badge: "Start here",
+    short: "A site with your name on it, your cuts up front and a Book button on every screen.",
     summary:
-      "A clean, fast website of up to five pages, written for your customers and built so Google can read it. Click-to-call, a contact form and your hours on every page.",
-    outcome: "Customers who search for you land on a site that answers their questions and makes it easy to get in touch.",
+      "A website that's yours, not a page inside a booking app. Your best cuts, your services and prices, where your suite is and how to get in, and a Book button that goes straight to the booking app you already use.",
+    outcome: "When someone hears your name and looks you up, they find you, see your work and book, without being shown ten other barbers first.",
     includes: [
-      "Up to 5 pages (e.g. Home, Services, About, Reviews, Contact)",
-      "Mobile-first design that loads fast on a phone",
-      "Copywriting help, so you don't start from a blank page",
-      "Contact form, click-to-call and Google Map",
-      "On-page SEO basics: titles, descriptions, local business schema",
-      "Domain, hosting and SSL set up in your name",
+      "A domain with your name on it (e.g. yournamecuts.ca)",
+      "Gallery of your best cuts, linked to your Instagram",
+      "Services menu with prices and times",
+      "Book button linked to Booksy, Squire, Fresha, Vagaro, Square or StyleSeat",
+      "Suite location with buzzer, parking and map directions",
+      "Your policies: deposits, lateness, no-shows",
+      "Domain and hosting set up in your name",
     ],
-    needs: ["Your logo (or we'll set up a simple wordmark)", "Photos of your work, team or premises", "A list of your services and service area"],
-    price: "$1,500",
-    priceNote: "Extra pages $150 each",
-    turnaround: "Live in 2 to 3 weeks",
+    needs: ["10 to 20 photos of your best cuts (phone photos are fine, we'll send tips)", "Your price list and booking link", "Your suite address and how clients get in"],
+    price: "$750",
+    priceNote: "Or 3 payments of $250",
+    turnaround: "Live in 7 to 10 days",
     icon: "website",
-    seoTitle: "Small business website design in Ontario",
+    seoTitle: "Websites for barbers in Ontario",
     faq: [
-      { q: "Do I own the website?", a: "Yes. The domain, hosting and site are set up in your name. If you ever leave, you take everything with you." },
-      { q: "Can I edit it myself?", a: "Yes. We show you how to change text, photos and hours. Or add the care plan and send us changes by email." },
-      { q: "What does hosting cost?", a: "Hosting for a site like this is often free or a few dollars a month. A domain is about $20 a year. You pay the providers directly, so there is no markup." },
+      { q: "I already have Booksy (or Squire). Why do I need a website?", a: "The booking app is where people book. Your website is where they decide. It's yours, it comes up when people search your name, and it doesn't show them other barbers nearby." },
+      { q: "Do I own the website?", a: "Yes. The domain, hosting and site are in your name. If you ever leave, you take everything with you." },
+      { q: "What does hosting cost?", a: "Hosting for a site like this is often free or a few dollars a month. A domain is about $20 a year. You pay the providers directly, so there's no markup." },
+      { q: "Can I change my prices later?", a: "Yes. We show you how, or add the care plan and just text us the changes." },
     ],
   },
   {
     slug: "google-business-profile",
     title: "Google Business Profile",
-    short: "Show up on Google Maps and in the local results.",
+    short: "Show up when people nearby search \"barber near me\".",
     summary:
-      "We create or claim your Google Business Profile, get it verified and fill in every field Google uses to rank local businesses, so you appear when people nearby search for what you do.",
-    outcome: "Your business shows up on Google Maps and in the \"near me\" results, with your hours, photos and reviews in one place.",
+      "Your own Google profile as an independent barber, separate from the suite building's listing. Set up with the right category, your services and hours, photos of your cuts and a booking button, so you show up on Google Maps.",
+    outcome: "New clients in your area find you on Google Maps, see your reviews and book straight from the search results.",
     includes: [
-      "Create, claim or clean up your profile",
+      "Your own profile as an independent barber, separate from the building's listing",
       "Help through Google's verification step",
-      "Categories, services, service area and hours",
-      "Business description written for local search",
-      "Photos uploaded and organized",
-      "A short review link and QR code to share with customers",
+      "Category, services, prices and hours",
+      "Booking button linked to your booking app",
+      "Photos of your cuts uploaded and organized",
+      "A review QR card for your station or mirror",
     ],
-    needs: ["Your business name, address and phone exactly as you use them", "Access to the business phone or email for verification", "10 or more photos"],
-    price: "$350",
+    needs: ["The name you go by as a barber", "Your suite address, including the suite number", "A phone number clients can reach you on"],
+    price: "$250",
     turnaround: "Set up in 3 to 5 days, plus Google's verification time",
     icon: "pin",
-    seoTitle: "Google Business Profile setup in Ontario",
+    seoTitle: "Google Business Profile setup for barbers in Ontario",
     faq: [
-      { q: "I already have a profile. Can you fix it?", a: "Yes. We audit what's there, fix wrong details and duplicates, and fill in what's missing. The price is the same." },
-      { q: "How long does verification take?", a: "It depends on Google. Many profiles verify within a few days by video or phone; some need a postcard, which can take up to two weeks." },
-      { q: "Can you guarantee I'll rank first?", a: "No one can honestly promise that. We set up everything Google looks at, so your profile is complete, accurate and ready to compete." },
+      { q: "My suite building already has a Google listing. Can I have my own?", a: "In most cases, yes. Google allows independent professionals who work from a shared location to have their own profile. We set yours up so it doesn't clash with the building's." },
+      { q: "Can you move my reviews from Booksy?", a: "Google doesn't allow reviews to be copied over from other platforms. We give you a QR card and a short link so your regulars can leave a Google review in under a minute." },
+      { q: "How long does verification take?", a: "It depends on Google. Many profiles verify within a few days by video; some need a postcard, which can take up to two weeks." },
     ],
   },
   {
     slug: "google-analytics",
     title: "Google Analytics",
-    short: "Know how many people find you, and what they do next.",
+    short: "See which posts and searches turn into bookings.",
     summary:
-      "We set up Google Analytics 4 and Google Search Console on your site, track the actions that matter (calls, form sends, direction requests) and give you a simple dashboard you'll actually look at.",
-    outcome: "You can see where your customers come from and which pages bring in calls, instead of guessing.",
+      "Google Analytics and Search Console on your site, with tracking on every tap of the Book, call and directions buttons, and your Instagram links tagged so you can see which posts send people to book.",
+    outcome: "You know what's bringing in new clients, so you can do more of it.",
     includes: [
-      "Google Analytics 4 property in your name",
-      "Google Search Console connected and sitemap submitted",
-      "Tracking for calls, form submissions and email clicks",
-      "A one-page dashboard in Looker Studio",
-      "A 20-minute walkthrough so you know what to look at",
+      "Google Analytics 4 in your name",
+      "Google Search Console connected",
+      "Tracking for taps on Book, call and directions",
+      "Instagram bio and story links tagged, so you see which posts work",
+      "A simple one-page dashboard you can check on your phone",
     ],
-    needs: ["Access to your website (or we're building it)", "A Google account for the business"],
-    price: "$250",
+    needs: ["A website (yours, or the one we build)", "A Google account"],
+    price: "$150",
     turnaround: "Done in 2 to 3 days",
     icon: "chart",
-    seoTitle: "Google Analytics 4 setup for small businesses in Ontario",
+    seoTitle: "Google Analytics for barber websites",
     faq: [
-      { q: "Will this work on a site you didn't build?", a: "Usually, yes. We can add tracking to WordPress, Wix, Squarespace, Shopify and most other platforms." },
-      { q: "Is it privacy-friendly?", a: "We set it up with a short privacy notice on your site and keep data collection to what you need." },
+      { q: "Can I see bookings from inside Booksy or Squire?", a: "We track every tap on your Book button, which is where clients leave your site for the booking app. Most booking apps also show their own stats." },
+      { q: "Is it privacy-friendly?", a: "We add a short privacy note to your site and only collect what you need." },
     ],
   },
   {
-    slug: "social-media-setup",
-    title: "Social media profiles",
-    short: "Consistent, complete profiles on the platforms your customers use.",
+    slug: "instagram-setup",
+    title: "Instagram and socials",
+    short: "Make your Instagram work like a shopfront.",
     summary:
-      "We set up or tidy up your profiles on Facebook, Instagram and up to two more platforms, with matching branding, the right business details and links back to your website.",
-    outcome: "Wherever customers look you up, they find a business that looks open, current and trustworthy.",
+      "We set your Instagram up to turn followers into bookings: a professional account with a Book button, a bio people can find in search, highlights for your cuts, prices and location, and links back to your website. TikTok and Facebook set up to match.",
+    outcome: "Someone who finds your work on Instagram can see your prices, find your suite and book in a couple of taps.",
     includes: [
-      "Facebook Page and Instagram business account",
-      "Up to 2 more: LinkedIn, Google, Yelp, Nextdoor, TikTok or Pinterest",
-      "Profile and cover images sized for each platform",
-      "Bio, contact details, hours and links filled in",
-      "Your first 3 posts, ready to go",
-      "Logins handed over to you, with two-factor authentication on",
+      "Professional account with the barber category",
+      "Book button connected to your booking app",
+      "Name and bio written so you show up when people search \"barber\" and your city",
+      "Highlight covers: Cuts, Prices, Location, Reviews",
+      "Three pinned posts: who you are, your prices, how to book",
+      "TikTok and Facebook set up to match (optional)",
     ],
-    needs: ["Your logo and a few photos", "Access to any existing accounts"],
-    price: "$400",
+    needs: ["Your Instagram login (you stay the owner)", "A photo of you and a few of your cuts"],
+    price: "$250",
     turnaround: "Done in 1 week",
     icon: "social",
-    seoTitle: "Social media profile setup for Ontario small businesses",
+    seoTitle: "Instagram setup for barbers",
     faq: [
-      { q: "Do you post for me every week?", a: "Not with this service. It gets your profiles set up properly. Ongoing posting can be added on request." },
-      { q: "Which platforms should I be on?", a: "Usually the two or three where your customers already are. We'll recommend them on the free call." },
+      { q: "Do you post for me every week?", a: "Not with this service. It sets your accounts up properly. You keep posting your cuts, and now every post leads somewhere." },
+      { q: "Will you change how my feed looks?", a: "Only if you want us to. Your cuts are the content; we make sure everything around them works." },
     ],
   },
 ];
 
-// The bundle: all four services together for less.
+// The bundle: everything together for less.
 export const bundle = {
-  title: "The Get Found package",
-  summary: "Website, Google Business Profile, Google Analytics and social media profiles, set up together so everything links up.",
-  price: "$2,200",
-  separately: "$2,500",
-  turnaround: "Everything live in about 3 weeks",
+  title: "The Own Your Chair package",
+  summary: "Your website, Google Business Profile, Google Analytics and Instagram, set up together so everything links up and points to your Book button.",
+  price: "$1,200",
+  separately: "$1,400",
+  payments: "Or 4 payments of $300",
+  turnaround: "Everything live in about 2 weeks",
 };
 
 export const carePlan = {
   title: "Care plan",
   summary: "Optional, after launch. Cancel any time.",
-  price: "$99",
+  price: "$39",
   per: "month",
   includes: [
-    "Site updates and small edits (up to 1 hour a month)",
-    "Security and uptime monitoring",
-    "Google Business Profile posts and review replies",
-    "A plain-English report each month",
+    "Price, hours and policy changes, just text us",
+    "New cuts added to your gallery every month",
+    "Google profile photos and posts kept fresh",
+    "A short monthly report: visits and Book taps",
   ],
 };
 
 export const process = [
-  { title: "Free call", body: "A 15-minute call about your business and what you need. You get a fixed price, in writing." },
-  { title: "We build", body: "We set everything up and send you a preview. You tell us what to change." },
-  { title: "Launch", body: "Your site goes live, your profiles go public and everything links together." },
-  { title: "Hand over", body: "Every login is yours. We walk you through it so you're never locked in." },
+  { title: "Free call", body: "15 minutes, between clients. We talk about your suite, your clients and where you want to take your brand. You get a fixed price." },
+  { title: "Send your stuff", body: "Photos of your cuts, your price list and your booking link. We'll send a simple checklist." },
+  { title: "We build", body: "You get a preview link to check on your phone. Tell us what to change." },
+  { title: "Go live", body: "Your site launches, your Book button is everywhere, and every login is handed to you." },
 ];
 
 export const promises = [
-  { title: "You own everything", body: "Every account, domain and login is set up in your name." },
-  { title: "Flat, upfront prices", body: "No hourly billing and no surprise invoices." },
-  { title: "Plain English", body: "No jargon. We explain what we did and why." },
+  { title: "You own everything", body: "Your domain, site and accounts are in your name. Move suites or move on, it all comes with you." },
+  { title: "Works with your booking app", body: "Keep Booksy, Squire, Fresha or whatever you use. We send clients to it." },
+  { title: "Pay in instalments", body: "Split the website into 3 payments, or the package into 4." },
 ];
 
 export const faq = [
-  { q: "Who is this for?", a: "Local small businesses in Ontario: trades, contractors, cafés, salons, clinics, shops and service businesses that need to be found by customers nearby." },
-  { q: "Do I need all four services?", a: "No. Each one stands on its own. The package is cheaper if you need everything, and it means it all links up from day one." },
-  { q: "How do I pay?", a: "Half to start and half at launch, by e-transfer or credit card. HST is added to all prices." },
-  { q: "I already have a website. Can you still help?", a: "Yes. We can set up your Google Business Profile, analytics and social profiles around the site you have, or rebuild it if it's holding you back." },
-  { q: "What happens after launch?", a: "You're set. Everything is yours to run. If you'd rather not, the care plan covers updates, Google posts and a monthly report." },
+  { q: "Who is this for?", a: "Barbers in Ontario who rent their own suite, or are about to, and want clients to book them by name, not just by location." },
+  { q: "I'm still in a shop chair. Is it too early?", a: "Not at all. Building your name before you move means your clients know where to find you on day one in your suite." },
+  { q: "Why start with the website?", a: "It's the one thing that's fully yours. Your Google profile, Instagram and booking app all point back to it, so it's the base everything else builds on." },
+  { q: "Do I need to switch booking apps?", a: "No. We work with whatever you use: Booksy, Squire, Fresha, Vagaro, Square Appointments, StyleSeat and others." },
+  { q: "How do I pay?", a: "Half to start and half at launch, or spread it out: the website in 3 payments, the package in 4. E-transfer or credit card. HST is added to all prices." },
+  { q: "What if I move suites?", a: "Everything is in your name, so it moves with you. We'll update your address on your site and Google profile; it's included in the care plan." },
 ];
 
-export const businessTypes = ["Trades or contractor", "Food and drink", "Health and beauty", "Retail", "Professional services", "Other"];
+// Qualifying question on the contact form.
+export const stages = ["Planning the move to a suite", "Just moved into my suite", "In my suite for a while", "Still in a shop chair"];
 
 export const isTodo = (value: string) => !value || value === TODO;

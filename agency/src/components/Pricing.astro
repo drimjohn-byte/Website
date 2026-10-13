@@ -9,7 +9,7 @@ import { bundle, carePlan, services } from "../config/site";
     <h3 class="h2">{bundle.title}</h3>
     <p class="muted">{bundle.summary}</p>
     <p class="plan__price"><strong>{bundle.price}</strong> <s class="muted">{bundle.separately}</s></p>
-    <p class="plan__meta">One-time. {bundle.turnaround}.</p>
+    <p class="plan__meta">One-time. {bundle.payments}. {bundle.turnaround}.</p>
     <ul role="list" class="plan__list">
       {services.map((s) => <li><Icon name="check" /><span><strong>{s.title}</strong> <span class="muted">({s.price} on its own)</span></span></li>)}
     </ul>

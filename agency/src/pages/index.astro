@@ -16,10 +16,10 @@ const tel = site.phone.replace(/[^\d+]/g, "");
 
   <section class="section problem theme-ink">
     <div class="container problem__grid">
-      <h2 data-reveal>When someone nearby searches for what you do, do they find you, or the business down the road?</h2>
+      <h2 data-reveal>You left the shop to work for yourself. Your name has to do the work the shop sign used to.</h2>
       <div class="problem__body" data-reveal>
-        <p class="lead">Most customers look you up on Google before they call. If your hours are wrong, your website is slow on a phone or your Instagram hasn't been touched since 2019, they move on.</p>
-        <p class="muted">We fix that in one go, and set it up so you can see exactly where your calls come from.</p>
+        <p class="lead">When someone hears about you, they search your name. Right now they find a booking-app page that looks like every other barber's, or an Instagram with no prices and no address.</p>
+        <p class="muted">A website with your name on it shows your work, tells them what it costs and where your suite is, and sends them straight to your Book button. It's the start of a brand that's yours, wherever your chair is.</p>
       </div>
     </div>
   </section>
@@ -28,8 +28,8 @@ const tel = site.phone.replace(/[^\d+]/g, "");
     <div class="container">
       <div class="section__head">
         <p class="eyebrow">Services</p>
-        <h2>Everything you need to be found, set up properly.</h2>
-        <p class="lead">Pick one, or get all four as a package. Every account is created in your name and handed over to you.</p>
+        <h2>Start with your website. Build from there.</h2>
+        <p class="lead">The website is the base: your Google profile and Instagram all point back to it. Add the rest when you're ready, or get everything at once and save.</p>
       </div>
       <div class="services">
         {services.map((service) => <ServiceCard service={service} />)}
@@ -41,8 +41,8 @@ const tel = site.phone.replace(/[^\d+]/g, "");
     <div class="container">
       <div class="section__head">
         <p class="eyebrow">Pricing</p>
-        <h2>One flat price. No contracts.</h2>
-        <p class="lead">You know the full cost before we start. Half up front, half at launch.</p>
+        <h2>Flat prices. Pay in instalments.</h2>
+        <p class="lead">You know the full cost before we start. Pay half up front and half at launch, or split it into monthly payments.</p>
       </div>
       <Pricing />
     </div>
@@ -52,7 +52,7 @@ const tel = site.phone.replace(/[^\d+]/g, "");
     <div class="container">
       <div class="section__head">
         <p class="eyebrow">How it works</p>
-        <h2>From first call to found, in about three weeks.</h2>
+        <h2>From first call to live, in about two weeks.</h2>
       </div>
       <ProcessSteps />
     </div>
@@ -85,8 +85,8 @@ const tel = site.phone.replace(/[^\d+]/g, "");
     <div class="container contact-grid">
       <div class="contact__intro">
         <p class="eyebrow">Free 15-minute call</p>
-        <h2>Let's get you found.</h2>
-        <p class="lead">Tell us a little about your business. We'll reply within one business day with times for a quick call and a fixed price.</p>
+        <h2>Let's build your brand.</h2>
+        <p class="lead">Tell us a little about you and your suite. We'll reply within one business day with times for a quick call and a fixed price.</p>
         <ul role="list" class="contact__direct">
           <li><Icon name="mail" /><Contact label="Email" value={site.email} href={`mailto:${site.email}`} /></li>
           <li><Icon name="phone" /><Contact label="Phone" value={site.phone} href={`tel:${tel}`} /></li>
@@ -104,8 +104,7 @@ const tel = site.phone.replace(/[^\d+]/g, "");
   .problem__body { display: grid; gap: var(--space-4); }
   .problem .lead { color: var(--color-text); }
 
-  .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
-  @media (max-width: 1100px) { .services { grid-template-columns: 1fr 1fr; } }
+  .services { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
   @media (max-width: 600px) { .services { grid-template-columns: 1fr; } }
 
   .promises-band { padding-block: var(--space-8); }
