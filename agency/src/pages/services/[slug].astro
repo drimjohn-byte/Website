@@ -1,0 +1,102 @@
+---
+import Base from "../../layouts/Base.astro";
+import Button from "../../components/Button.astro";
+import Icon from "../../components/Icon.astro";
+import Faq from "../../components/Faq.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { services, bundle, site, type Service } from "../../config/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+interface Props { service: Service }
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+---
+<Base title={service.seoTitle} description={`${service.summary} From ${service.price} CAD. ${service.turnaround}.`}>
+  <section class="section svc-hero">
+    <div class="container svc-hero__grid">
+      <div class="svc-hero__copy">
+        <a href="/#services" class="back">&larr; All services</a>
+        <span class="svc-icon"><Icon name={service.icon} /></span>
+        <h1 class="display">{service.title}</h1>
+        <p class="lead">{service.summary}</p>
+      </div>
+      <aside class="price-card">
+        <p class="muted">From</p>
+        <p class="price-card__price">{service.price}</p>
+        {service.priceNote && <p class="muted price-card__note">{service.priceNote}</p>}
+        <p class="price-card__turn"><Icon name="check" />{service.turnaround}</p>
+        <Button href={site.bookingUrl || "/#contact"} arrow>Book a free call</Button>
+        <p class="price-card__bundle muted">Or get all four services for <strong>{bundle.price}</strong> with <a href="/#pricing">{bundle.title.replace(/^The /, "the ")}</a>.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section theme-cream">
+    <div class="container two-col">
+      <div>
+        <h2 class="h3">What's included</h2>
+        <ul role="list" class="ticks">
+          {service.includes.map((item) => <li><Icon name="check" />{item}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2 class="h3">What you get out of it</h2>
+        <p class="lead outcome">{service.outcome}</p>
+        <h2 class="h3 needs-h">What we need from you</h2>
+        <ul role="list" class="ticks ticks--plain">
+          {service.needs.map((item) => <li><Icon name="arrow" />{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2 class="h2">Questions</h2>
+      <Faq items={service.faq} />
+    </div>
+  </section>
+
+  <section class="section theme-cream">
+    <div class="container">
+      <h2 class="h2 others-h">Pairs well with</h2>
+      <div class="others">{others.map((s) => <ServiceCard service={s} />)}</div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .svc-hero__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-8); align-items: start; }
+  .svc-hero__copy { display: grid; gap: var(--space-5); justify-items: start; }
+  .back { font-weight: 500; text-decoration: none; color: var(--color-text-muted); }
+  .back:hover { color: var(--color-text); }
+  .svc-icon { display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 18px; background: color-mix(in srgb, var(--sl-signal) 14%, transparent); color: var(--sl-signal-deep); }
+  .svc-icon .icon { width: 2rem; height: 2rem; }
+
+  .price-card { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-7) var(--space-6); background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+  .price-card__price { font-family: var(--font-display); font-weight: 800; font-size: 3.5rem; line-height: 1; letter-spacing: -0.03em; }
+  .price-card__note { font-size: var(--text-small); margin-top: calc(var(--space-2) * -1); }
+  .price-card__turn { display: flex; gap: var(--space-2); align-items: center; font-weight: 500; margin-block: var(--space-2); }
+  .price-card__turn .icon { color: var(--sl-go); }
+  .price-card__bundle { font-size: var(--text-small); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  .two-col .h3 { margin-bottom: var(--space-5); }
+  .ticks { display: grid; gap: var(--space-3); }
+  .ticks li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; }
+  .ticks .icon { color: var(--sl-go); margin-top: 0.15rem; }
+  .ticks--plain .icon { color: var(--sl-signal-deep); }
+  .outcome { color: var(--color-text); }
+  .needs-h { margin-top: var(--space-7); }
+
+  .narrow > * { max-width: 52rem; }
+  .narrow .h2, .others-h { margin-bottom: var(--space-6); }
+  .others { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+
+  @media (max-width: 900px) {
+    .svc-hero__grid, .two-col { grid-template-columns: 1fr; gap: var(--space-7); }
+    .others { grid-template-columns: 1fr; }
+  }
+</style>

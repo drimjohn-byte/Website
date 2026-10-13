@@ -1,0 +1,44 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "ghost";
+  type?: "button" | "submit";
+  arrow?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = "primary", type = "button", arrow = false, class: className, ...rest } = Astro.props;
+const Tag = href ? "a" : "button";
+---
+<Tag class:list={["btn", `btn--${variant}`, className]} href={href} type={href ? undefined : type} {...rest}>
+  <slot />{arrow && <Icon name="arrow" class="btn__arrow" />}
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 3rem;
+    padding: 0 var(--space-5);
+    border-radius: var(--radius-pill);
+    border: 1.5px solid transparent;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: none; }
+  /* Ink text on signal orange: 7.1:1 */
+  .btn--primary { background: var(--sl-signal); color: var(--sl-ink); box-shadow: 0 6px 18px -8px rgba(255, 106, 43, 0.8); }
+  .btn--primary:hover { background: #FF7D45; }
+  .btn--secondary { background: transparent; color: var(--color-text); border-color: currentColor; }
+  .btn--secondary:hover { background: color-mix(in srgb, var(--color-text) 6%, transparent); }
+  .btn--ghost { background: transparent; color: var(--color-text); padding-inline: var(--space-2); text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 0.3em; }
+  .btn__arrow { transition: transform var(--duration-fast) var(--ease); }
+  .btn:hover .btn__arrow { transform: translateX(3px); }
+</style>

@@ -1,0 +1,133 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Pricing from "../components/Pricing.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import Faq from "../components/Faq.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Contact from "../components/Contact.astro";
+import Icon from "../components/Icon.astro";
+import { site, services, promises, faq } from "../config/site";
+const tel = site.phone.replace(/[^\d+]/g, "");
+---
+<Base>
+  <Hero />
+
+  <section class="section problem theme-ink">
+    <div class="container problem__grid">
+      <h2 data-reveal>When someone nearby searches for what you do, do they find you, or the business down the road?</h2>
+      <div class="problem__body" data-reveal>
+        <p class="lead">Most customers look you up on Google before they call. If your hours are wrong, your website is slow on a phone or your Instagram hasn't been touched since 2019, they move on.</p>
+        <p class="muted">We fix that in one go, and set it up so you can see exactly where your calls come from.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Services</p>
+        <h2>Everything you need to be found, set up properly.</h2>
+        <p class="lead">Pick one, or get all four as a package. Every account is created in your name and handed over to you.</p>
+      </div>
+      <div class="services">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section theme-cream" id="pricing">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Pricing</p>
+        <h2>One flat price. No contracts.</h2>
+        <p class="lead">You know the full cost before we start. Half up front, half at launch.</p>
+      </div>
+      <Pricing />
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">How it works</p>
+        <h2>From first call to found, in about three weeks.</h2>
+      </div>
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section promises-band theme-cream">
+    <div class="container promises">
+      {promises.map((p) => (
+        <div class="promise" data-reveal>
+          <Icon name="check" />
+          <h3>{p.title}</h3>
+          <p class="muted">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container faq-grid">
+      <div class="section__head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions we get a lot.</h2>
+        <p class="muted">Something else on your mind? Ask on the free call.</p>
+      </div>
+      <Faq items={faq} />
+    </div>
+  </section>
+
+  <section class="section theme-ink" id="contact">
+    <div class="container contact-grid">
+      <div class="contact__intro">
+        <p class="eyebrow">Free 15-minute call</p>
+        <h2>Let's get you found.</h2>
+        <p class="lead">Tell us a little about your business. We'll reply within one business day with times for a quick call and a fixed price.</p>
+        <ul role="list" class="contact__direct">
+          <li><Icon name="mail" /><Contact label="Email" value={site.email} href={`mailto:${site.email}`} /></li>
+          <li><Icon name="phone" /><Contact label="Phone" value={site.phone} href={`tel:${tel}`} /></li>
+        </ul>
+      </div>
+      <div class="contact__card">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .problem__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-8); align-items: end; }
+  .problem__body { display: grid; gap: var(--space-4); }
+  .problem .lead { color: var(--color-text); }
+
+  .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
+  @media (max-width: 1100px) { .services { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .services { grid-template-columns: 1fr; } }
+
+  .promises-band { padding-block: var(--space-8); }
+  .promises { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-7); }
+  .promise { display: grid; gap: var(--space-2); }
+  .promise .icon { width: 2rem; height: 2rem; padding: 0.35rem; border-radius: 50%; background: var(--sl-go); color: #fff; stroke-width: 2.5; margin-bottom: var(--space-2); }
+
+  .faq-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-8); align-items: start; }
+  .faq-grid .section__head { margin-bottom: 0; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--space-8); align-items: start; }
+  .contact__intro { display: grid; gap: var(--space-5); position: sticky; top: 7rem; }
+  .contact__direct { display: grid; gap: var(--space-3); margin-top: var(--space-3); font-weight: 500; }
+  .contact__direct li { display: flex; align-items: center; gap: var(--space-3); }
+  .contact__direct .icon { color: var(--sl-signal); }
+  .contact__card { background: var(--sl-paper); color: var(--sl-ink); padding: clamp(var(--space-5), 1rem + 3vw, var(--space-7)); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+    /* The form sits on a light card, so restore light-theme roles inside it */
+    --color-bg: var(--sl-paper); --color-surface: #fff; --color-text: var(--sl-ink); --color-text-muted: var(--sl-ink-soft); --color-line: rgba(16, 33, 58, 0.14); --color-focus: #2563EB; --color-accent-text: var(--sl-signal-deep); }
+
+  @media (max-width: 900px) {
+    .problem__grid, .faq-grid, .contact-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+    .contact__intro { position: static; }
+    .promises { grid-template-columns: 1fr; gap: var(--space-6); }
+  }
+</style>

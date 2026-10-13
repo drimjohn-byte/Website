@@ -1,0 +1,67 @@
+---
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+import { nav } from "../config/site";
+---
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="Signal Local home"><Logo /></a>
+    <nav class="header__nav" aria-label="Main">
+      <ul role="list">
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <Button href="/#contact" class="header__cta">Free call</Button>
+    <button class="header__toggle" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
+      <span class="visually-hidden">Menu</span>
+      <span class="burger" aria-hidden="true"></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main" hidden data-menu>
+    <ul role="list" class="container">
+      {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      <li><a href="/#contact">Book a free call</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--sl-paper) 88%, transparent); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid transparent; transition: border-color var(--duration-fast) var(--ease); }
+  .header.is-scrolled { border-bottom-color: var(--color-line); }
+  .header__inner { display: flex; align-items: center; gap: var(--space-6); min-height: 4.5rem; }
+  .header__logo { text-decoration: none; margin-right: auto; }
+  .header__nav ul { display: flex; gap: var(--space-6); }
+  .header__nav a { text-decoration: none; font-weight: 500; font-size: 0.9375rem; }
+  .header__nav a:hover { color: var(--color-accent-text); }
+  .header__toggle { display: none; width: 3rem; height: 3rem; border: 0; background: transparent; border-radius: var(--radius-sm); place-items: center; }
+  .burger, .burger::before, .burger::after { display: block; width: 1.375rem; height: 2px; background: currentColor; border-radius: 2px; transition: transform var(--duration-fast) var(--ease); }
+  .burger { position: relative; }
+  .burger::before, .burger::after { content: ""; position: absolute; left: 0; }
+  .burger::before { top: -7px; }
+  .burger::after { top: 7px; }
+  [aria-expanded="true"] .burger { background: transparent; }
+  [aria-expanded="true"] .burger::before { transform: translateY(7px) rotate(45deg); }
+  [aria-expanded="true"] .burger::after { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav { border-top: 1px solid var(--color-line); padding-block: var(--space-4) var(--space-6); }
+  .mobile-nav a { display: block; padding: var(--space-3) 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 860px) {
+    .header__nav, .header__cta { display: none; }
+    .header__toggle { display: grid; }
+  }
+  @media (min-width: 861px) { .mobile-nav { display: none !important; } }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]")!;
+  const toggle = header.querySelector<HTMLButtonElement>("[data-menu-toggle]")!;
+  const menu = header.querySelector<HTMLElement>("[data-menu]")!;
+  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  const setOpen = (open: boolean) => { toggle.setAttribute("aria-expanded", String(open)); menu.hidden = !open; };
+  toggle.addEventListener("click", () => setOpen(menu.hidden));
+  menu.addEventListener("click", (e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) { setOpen(false); toggle.focus(); } });
+</script>

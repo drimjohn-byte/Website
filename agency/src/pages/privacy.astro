@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import Contact from "../components/Contact.astro";
+import { site } from "../config/site";
+---
+<Base title="Privacy" description={`How ${site.name} handles the details you send us.`}>
+  <section class="section">
+    <div class="container prose">
+      <h1 class="h2">Privacy</h1>
+      <p class="lead">Short version: we only use your details to reply to you, and we never sell or share them.</p>
+      <h2 class="h3">What we collect</h2>
+      <p>When you use the contact form we receive the details you type in: your name, email, phone number, business name and message.</p>
+      <h2 class="h3">How we use it</h2>
+      <p>Only to reply to your enquiry and, if you become a client, to do the work. We won't add you to a mailing list or send marketing emails without your separate consent, in line with Canada's Anti-Spam Legislation (CASL).</p>
+      <h2 class="h3">Who we share it with</h2>
+      <p>No one, except the services that deliver our email and form messages. Your information is handled in line with the Personal Information Protection and Electronic Documents Act (PIPEDA).</p>
+      <h2 class="h3">Analytics</h2>
+      <p>If this site uses analytics, it counts visits and page views to help us improve the site. It doesn't identify you personally.</p>
+      <h2 class="h3">Your rights</h2>
+      <p>You can ask to see, correct or delete the information we hold about you at any time. Email <Contact label="Email" value={site.email} href={`mailto:${site.email}`} />.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 46rem; display: grid; gap: var(--space-4); }
+  .prose h2 { margin-top: var(--space-5); }
+</style>

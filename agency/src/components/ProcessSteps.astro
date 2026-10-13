@@ -1,0 +1,26 @@
+---
+import { process } from "../config/site";
+---
+<ol class="steps">
+  {process.map((step, i) => (
+    <li class="step" data-reveal style={`transition-delay:${i * 80}ms`}>
+      <span class="step__num">{i + 1}</span>
+      <h3>{step.title}</h3>
+      <p class="muted">{step.body}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); counter-reset: step; }
+  .step { position: relative; display: grid; gap: var(--space-3); align-content: start; padding-top: var(--space-6); }
+  .step::before { content: ""; position: absolute; top: 1.25rem; left: 3rem; right: calc(var(--grid-gap) * -1); height: 2px; background: repeating-linear-gradient(90deg, var(--color-line) 0 6px, transparent 6px 12px); }
+  .step:last-child::before { display: none; }
+  .step__num { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--sl-signal); color: var(--sl-ink); font-family: var(--font-display); font-weight: 800; }
+  .step h3 { margin-top: var(--space-5); }
+  @media (max-width: 860px) {
+    .steps { grid-template-columns: 1fr 1fr; row-gap: var(--space-7); }
+    .step::before { display: none; }
+  }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+</style>

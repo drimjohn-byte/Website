@@ -1,0 +1,19 @@
+---
+// Wordmark: a location pin sending out a signal, beside the name.
+import { site } from "../config/site";
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<span class:list={["logo", className]}>
+  <svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 29s-9-8.2-9-15a9 9 0 0 1 18 0c0 6.8-9 15-9 15Z" fill="var(--sl-signal)" />
+    <circle cx="16" cy="14" r="3.25" fill="var(--sl-paper)" />
+    <path d="M26.5 5.5a12 12 0 0 1 2.5 7.5M23.5 8a7.5 7.5 0 0 1 1.6 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" />
+  </svg>
+  <span class="logo__name">{site.name}</span>
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.03em; white-space: nowrap; }
+  .logo__mark { width: 1.75rem; height: 1.75rem; flex: none; }
+</style>

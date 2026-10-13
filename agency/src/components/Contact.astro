@@ -1,0 +1,7 @@
+---
+// Shows a contact value, or a visible "to confirm" marker while it is still a TODO.
+import { isTodo } from "../config/site";
+interface Props { value: string; href?: string; label: string }
+const { value, href, label } = Astro.props;
+---
+{isTodo(value) ? <span class="todo">{label}: to confirm</span> : href ? <a href={href}>{value}</a> : <span>{value}</span>}
