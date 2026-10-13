@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thistle Hair Studio (concept)</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /*
+    Concept homepage for Thistle Hair Studio, made by Signal Local as a pitch.
+    Everything marked "sample" (prices, hours, address, bio) is placeholder content
+    to replace with his real details. Photo slots are for his own cut photos.
+  */
+  :root {
+    --heather: #4B2E4F;      /* thistle purple */
+    --heather-deep: #2A1A2D;
+    --thistle: #B9A0C9;      /* soft thistle bloom, on dark only */
+    --brass: #C49A5A;
+    --cream: #F6F1E9;
+    --paper: #FBF8F3;
+    --ink: #1D1620;
+    --muted: #6B5F6E;        /* 5.6:1 on paper */
+    --line: rgba(29, 22, 32, 0.12);
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+    --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+    --max: 1160px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+  .section { padding-block: clamp(4rem, 3rem + 5vw, 7rem); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+  h2 { font-size: clamp(2rem, 1.5rem + 2.2vw, 3.25rem); }
+  .kicker { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--heather); }
+  .hero .kicker, .book .kicker, .reviews .kicker { color: var(--brass); }
+  .muted { color: var(--muted); }
+  .sample { display: inline-block; margin-left: 0.5rem; padding: 0.1rem 0.5rem; border: 1px dashed currentColor; border-radius: 999px; font-family: var(--sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; vertical-align: middle; opacity: 0.6; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3rem; padding: 0 1.5rem; border-radius: 999px; font-weight: 600; text-decoration: none; transition: transform 160ms, background-color 160ms; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn--brass { background: var(--brass); color: var(--heather-deep); }
+  .btn--brass:hover { background: #D1A86A; }
+  .btn--line { border: 1.5px solid currentColor; }
+  :focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; border-radius: 6px; }
+
+  /* Concept bar */
+  .concept { background: var(--ink); color: #D8D0DA; font-size: 0.75rem; text-align: center; padding: 0.45rem var(--gutter); }
+  .concept strong { color: #fff; }
+
+  /* Header */
+  .header { position: sticky; top: 0; z-index: 20; background: rgba(42, 26, 45, 0.92); backdrop-filter: blur(10px); color: var(--cream); }
+  .header .wrap { display: flex; align-items: center; gap: 1.5rem; min-height: 4.25rem; }
+  .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
+  .brand svg { width: 2rem; height: 2rem; }
+  .brand__name { font-family: var(--serif); font-size: 1.375rem; font-weight: 700; letter-spacing: 0.02em; line-height: 1; }
+  .brand__name small { display: block; font-family: var(--sans); font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; color: var(--thistle); margin-top: 0.2rem; }
+  .nav { display: flex; gap: 1.75rem; font-size: 0.9375rem; }
+  .nav a { text-decoration: none; opacity: 0.85; }
+  .nav a:hover { opacity: 1; color: var(--brass); }
+  .header .btn { min-height: 2.5rem; padding: 0 1.1rem; font-size: 0.9375rem; }
+  @media (max-width: 760px) { .nav { display: none; } }
+
+  /* Hero */
+  .hero { background: var(--heather-deep); color: var(--cream); position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 80% at 85% 20%, rgba(185, 160, 201, 0.22), transparent 60%), radial-gradient(40% 60% at 0% 100%, rgba(196, 154, 90, 0.14), transparent 60%); }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 4vw, 4rem); align-items: center; padding-block: clamp(3.5rem, 2rem + 6vw, 7rem); }
+  .hero h1 { font-size: clamp(3rem, 1.8rem + 5.5vw, 6.25rem); }
+  .hero h1 em { font-style: italic; color: var(--thistle); }
+  .hero__lead { font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); color: #DCD3DE; max-width: 34rem; margin-top: 1.5rem; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .hero__facts { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 2rem; font-size: 0.875rem; color: #CFC4D2; list-style: none; padding: 0; }
+  .hero__facts li::before { content: "✦"; color: var(--brass); margin-right: 0.45rem; }
+  .hero__photo { aspect-ratio: 4 / 5; border-radius: 200px 200px 24px 24px; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero__photo { max-width: 26rem; width: 100%; justify-self: center; } }
+
+  /* Photo slots, for his own photos */
+  .photo { position: relative; overflow: hidden; background: radial-gradient(120% 90% at 30% 10%, #5A4560, #241A27 70%); display: grid; place-items: end start; color: rgba(246, 241, 233, 0.8); }
+  /* Scissors mark in the middle of each empty slot */
+  .photo::before { content: ""; position: absolute; left: 50%; top: 50%; width: 3.5rem; height: 3.5rem; transform: translate(-50%, -50%); opacity: 0.35; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F6F1E9' stroke-width='1.2' stroke-linecap='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .photo::after { content: ""; position: absolute; inset: 0.75rem; border: 1px dashed rgba(246, 241, 233, 0.18); border-radius: inherit; }
+  .photo span { position: relative; z-index: 1; margin: 1.1rem; padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(0,0,0,0.4); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; }
+  .photo--b { background: radial-gradient(120% 90% at 30% 10%, #6A5444, #2A2019 70%); }
+  .photo--c { background: radial-gradient(120% 90% at 30% 10%, #4A5560, #1D2228 70%); }
+
+  /* Work */
+  .work__head { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .gallery .photo { aspect-ratio: 1; border-radius: 14px; }
+  .gallery .photo:first-child { grid-row: span 2; aspect-ratio: auto; }
+  @media (max-width: 640px) { .gallery { grid-template-columns: 1fr 1fr; } .gallery .photo:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 3; } }
+
+  /* Services */
+  .services { background: var(--cream); }
+  .services .wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(2rem, 5vw, 5rem); }
+  .menu { list-style: none; padding: 0; }
+  .menu li { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+  .menu li:first-child { border-top: 1px solid var(--line); }
+  .menu h3 { font-size: 1.375rem; }
+  .menu .price { font-family: var(--serif); font-size: 1.375rem; font-weight: 700; color: var(--heather); }
+  .menu p { grid-column: 1 / -1; font-size: 0.9375rem; color: var(--muted); }
+  .services__aside { display: grid; gap: 1.25rem; align-content: start; }
+  @media (max-width: 860px) { .services .wrap { grid-template-columns: 1fr; } }
+
+  /* About */
+  .about .wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .about .photo { aspect-ratio: 4 / 5; border-radius: 24px; }
+  .about blockquote { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.25; color: var(--heather); margin-block: 1.5rem; }
+  .about p + p { margin-top: 1rem; }
+  @media (max-width: 860px) { .about .wrap { grid-template-columns: 1fr; } .about .photo { max-width: 24rem; } }
+
+  /* Reviews */
+  .reviews { background: var(--heather); color: var(--cream); text-align: center; }
+  .reviews .wrap { display: grid; justify-items: center; gap: 1.25rem; }
+  .reviews p { max-width: 36rem; color: #DCD3DE; }
+
+  /* Visit */
+  .visit__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+  .card { padding: 1.75rem; background: #fff; border: 1px solid var(--line); border-radius: 20px; }
+  .card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .card ul { list-style: none; padding: 0; display: grid; gap: 0.4rem; font-size: 0.9375rem; }
+  .hours li { display: flex; justify-content: space-between; gap: 1rem; }
+  .hours li span:last-child { font-weight: 500; }
+  .map { margin-top: 1.25rem; height: 15rem; border-radius: 20px; background: #E9E4DC; position: relative; overflow: hidden; }
+  .map::before { content: ""; position: absolute; inset: -20%; background:
+      linear-gradient(8deg, transparent 47%, #fff 47% 50%, transparent 50%),
+      linear-gradient(-80deg, transparent 58%, #fff 58% 60%, transparent 60%),
+      linear-gradient(30deg, transparent 70%, #F3EFE8 70% 72%, transparent 72%); }
+  .map__pin { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -100%); display: grid; justify-items: center; gap: 0.35rem; }
+  .map__pin span { background: var(--heather-deep); color: var(--cream); font-size: 0.8125rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: 999px; white-space: nowrap; }
+  .map__pin i { width: 14px; height: 14px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 6px rgba(196, 154, 90, 0.3); }
+  @media (max-width: 860px) { .visit__grid { grid-template-columns: 1fr; } }
+
+  /* Book */
+  .book { background: var(--heather-deep); color: var(--cream); text-align: center; }
+  .book .wrap { display: grid; justify-items: center; gap: 1.25rem; }
+  .book h2 { font-size: clamp(2.5rem, 1.8rem + 3vw, 4.5rem); }
+  .book h2 em { color: var(--thistle); }
+
+  .footer { background: var(--ink); color: #A99FAC; font-size: 0.875rem; padding-block: 2rem 6rem; }
+  .footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+  @media (min-width: 761px) { .footer { padding-bottom: 2rem; } }
+
+  /* Sticky Book bar on phones */
+  .bookbar { position: fixed; left: 0.75rem; right: 0.75rem; bottom: 0.75rem; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.6rem 0.6rem 0.6rem 1.1rem; background: var(--heather-deep); color: var(--cream); border-radius: 999px; box-shadow: 0 12px 30px rgba(0,0,0,0.3); font-size: 0.875rem; }
+  .bookbar .btn { min-height: 2.5rem; padding: 0 1.1rem; }
+  @media (min-width: 761px) { .bookbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="concept"><strong>Concept by Signal Local</strong> · A preview made for Thistle Hair Studio. Prices, hours and text are samples.</div>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Thistle Hair Studio">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 30V17" stroke="#C49A5A" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M16 23c-3-.5-5-2.5-5.5-5M16 21c2.5-.3 4.3-2 4.8-4.3" stroke="#C49A5A" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        <path d="M11 13.5c0-3 2.2-4.5 5-4.5s5 1.5 5 4.5c0 2.2-2.2 3.5-5 3.5s-5-1.3-5-3.5Z" fill="#C49A5A"/>
+        <path d="M11.5 10.5 9 4.5M13.5 9.3 12.5 3M16 9V2.5M18.5 9.3 19.5 3M20.5 10.5 23 4.5" stroke="#B9A0C9" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="brand__name">Thistle<small>Hair Studio</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#work">Work</a><a href="#services">Prices</a><a href="#about">About</a><a href="#visit">Visit</a>
+    </nav>
+    <a class="btn btn--brass" href="#book">Book now</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Private suite · By appointment</p>
+        <h1 style="margin-top:1rem">Sharp cuts.<br /><em>Your</em> chair.</h1>
+        <p class="hero__lead">Fades, scissor cuts and beard work in a quiet private suite. No walk-in wait, no crowded shop, just one chair and an hour that's all yours.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--brass" href="#book">Book on Square</a>
+          <a class="btn btn--line" href="#services">See prices</a>
+        </div>
+        <ul class="hero__facts">
+          <li>One-on-one appointments</li>
+          <li>Tap and card accepted</li>
+          <li>Easy parking</li>
+        </ul>
+      </div>
+      <div class="photo hero__photo"><span>Your best cut here</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="work__head">
+        <div>
+          <p class="kicker">The work</p>
+          <h2 style="margin-top:0.75rem">Fresh out of the chair.</h2>
+        </div>
+        <a class="btn btn--line" href="#" style="color:var(--heather)">More on Instagram →</a>
+      </div>
+      <div class="gallery">
+        <div class="photo"><span>Signature fade</span></div>
+        <div class="photo photo--b"><span>Beard shape-up</span></div>
+        <div class="photo photo--c"><span>Scissor cut</span></div>
+        <div class="photo photo--c"><span>Textured crop</span></div>
+        <div class="photo photo--b"><span>Kids' cut</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section services" id="services">
+    <div class="wrap">
+      <div class="services__aside">
+        <p class="kicker">Services <span class="sample">Sample prices</span></p>
+        <h2>Clear prices. No surprises.</h2>
+        <p class="muted">Every appointment includes a consultation, a hot towel finish and styling. Not sure what to book? Pick the closest and we'll sort it in the chair.</p>
+        <a class="btn btn--brass" href="#book" style="justify-self:start">Book an appointment</a>
+      </div>
+      <ul class="menu">
+        <li><h3>Signature cut</h3><span class="price">$45</span><p>Clipper or scissor cut, tailored to your head shape. 45 min</p></li>
+        <li><h3>Skin fade</h3><span class="price">$50</span><p>Bald or skin fade, blended clean, with a sharp line-up. 45 min</p></li>
+        <li><h3>Cut and beard</h3><span class="price">$65</span><p>Full cut plus beard trim, shape-up and hot towel. 1 hr</p></li>
+        <li><h3>Beard trim</h3><span class="price">$30</span><p>Shape, line and condition. 30 min</p></li>
+        <li><h3>Line-up</h3><span class="price">$20</span><p>Edges and outline between cuts. 15 min</p></li>
+        <li><h3>Kids' cut (12 and under)</h3><span class="price">$35</span><p>Patient, unhurried, no rush. 30 min</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="wrap">
+      <div class="photo photo--b"><span>Photo of you at the chair</span></div>
+      <div>
+        <p class="kicker">Behind the chair <span class="sample">Sample bio</span></p>
+        <blockquote>"I opened my own suite so every client gets my full attention, start to finish."</blockquote>
+        <p>This is where your story goes: how you got into cutting, where you trained, what you love doing most and what a client can expect when they sit down.</p>
+        <p class="muted">A short, honest bio is often the reason a new client picks you over the shop down the road.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reviews">
+    <div class="wrap">
+      <p class="kicker">Reviews</p>
+      <h2>Your Google reviews, front and centre.</h2>
+      <p>Real reviews from your clients appear here, pulled from your Google Business Profile, with a one-tap link for regulars to leave a new one.</p>
+      <a class="btn btn--line" href="#">Leave a review</a>
+    </div>
+  </section>
+
+  <section class="section" id="visit">
+    <div class="wrap">
+      <p class="kicker">Visit <span class="sample">Sample details</span></p>
+      <h2 style="margin-top:0.75rem">Finding the suite.</h2>
+      <div class="visit__grid">
+        <div class="card">
+          <h3>Address</h3>
+          <ul><li>Suite 12, Salon Suites Building</li><li>123 Main Street</li><li>Your City, ON</li></ul>
+        </div>
+        <div class="card">
+          <h3>Getting in</h3>
+          <ul><li>Free parking at the back</li><li>Buzz suite 12 at the side door</li><li>Take a seat in the lounge, I'll come get you</li></ul>
+        </div>
+        <div class="card">
+          <h3>Hours</h3>
+          <ul class="hours">
+            <li><span>Tue to Fri</span><span>10 am – 7 pm</span></li>
+            <li><span>Saturday</span><span>9 am – 4 pm</span></li>
+            <li><span>Sun, Mon</span><span>Closed</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="map" aria-hidden="true"><div class="map__pin"><span>Thistle Hair Studio</span><i></i></div></div>
+      <p class="muted" style="margin-top:1.25rem;font-size:0.9375rem">Good to know: a deposit holds your spot. Running more than 10 minutes late may mean a shorter service. Please give 24 hours' notice to cancel.</p>
+    </div>
+  </section>
+
+  <section class="section book" id="book">
+    <div class="wrap">
+      <p class="kicker">Ready when you are</p>
+      <h2>Book your <em>next cut.</em></h2>
+      <p style="color:#DCD3DE;max-width:32rem">Pick a time that suits you. Booking is through Square, with reminders sent to your phone.</p>
+      <a class="btn btn--brass" href="#">Book on Square</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© Thistle Hair Studio</span>
+    <span>thistlehair.ca · Instagram</span>
+  </div>
+</footer>
+
+<div class="bookbar"><span>Thistle Hair Studio</span><a class="btn btn--brass" href="#book">Book now</a></div>
+
+</body>
+</html>
