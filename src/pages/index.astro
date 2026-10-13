@@ -152,6 +152,8 @@ const schema = {
     .section-head__aside { grid-column: 9 / span 4; }
   }
 
+  /* The statement leads straight into Services, so it doesn't need its own bottom padding */
+  .intro { padding-bottom: 0; }
   .intro__statement { grid-column: 1 / -1; display: grid; gap: var(--space-6); }
   .intro__text { max-width: 24ch; }
   @media (min-width: 1024px) { .intro__statement { grid-column: 1 / span 10; } }
