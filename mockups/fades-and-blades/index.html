@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fades &amp; Blades De Drift</title>
+<meta name="description" content="Fades &amp; Blades De Drift. Precision styling, meticulous grooming, no shortcuts. Haircuts, hot towel shaves, beard care, colour and facials.">
+<link rel="icon" href="images/lion.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0d;
+    --bg-2: #111517;
+    --surface: #161b1e;
+    --line: #263036;
+    --text: #e9ecec;
+    --muted: #93a0a4;
+    --silver: #c9cfd1;
+    --teal: #4fb3b3;
+    --teal-deep: #1d4e52;
+    --radius: 14px;
+    --wrap: 1160px;
+    --display: "Oswald", "Arial Narrow", sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 400 16px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { width: min(var(--wrap), 100% - 32px); margin-inline: auto; }
+
+  .mock-strip {
+    background: var(--teal-deep);
+    color: #d8f0f0;
+    text-align: center;
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(10, 12, 13, .86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #3a4448; }
+  .brand span { font: 600 20px/1 var(--display); letter-spacing: .04em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 22px; border-radius: 999px;
+    font: 600 14px/1 var(--body); letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--teal); color: #061213; }
+  .btn-primary:hover { background: #63c4c4; }
+  .btn-ghost { border-color: #3a4448; color: var(--text); }
+  .btn-ghost:hover { background: var(--surface); }
+  .btn-sm { padding: 10px 16px; font-size: 13px; }
+
+  /* Hero */
+  .banner { background: #050606; border-bottom: 1px solid var(--line); }
+  .banner img { width: 100%; max-width: 1600px; margin-inline: auto; aspect-ratio: 1125 / 467; object-fit: cover; }
+  .hero { padding: 72px 0 32px; }
+  .hero-inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: end; }
+  .tagline {
+    font: 600 italic clamp(22px, 3vw, 30px)/1.2 "Playfair Display", serif;
+    color: var(--silver); margin: 0 0 10px;
+  }
+  .hero h1 {
+    font: 700 clamp(40px, 6vw, 76px)/.95 var(--display);
+    text-transform: uppercase; letter-spacing: .01em; margin: 0;
+  }
+  .hero p.lead { color: var(--silver); margin: 0 0 28px; font-size: 18px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Sections */
+  section { padding: 96px 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--teal); font: 500 13px/1 var(--body); letter-spacing: .22em; text-transform: uppercase; margin: 0 0 14px;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--teal); }
+  h2 {
+    font: 700 clamp(34px, 5vw, 56px)/1 var(--display);
+    text-transform: uppercase; margin: 0 0 16px;
+  }
+  .section-head { max-width: 640px; margin-bottom: 48px; }
+  .section-head p { color: var(--muted); margin: 0; }
+
+  /* Pillars */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .pillar { background: var(--bg-2); padding: 32px 28px; }
+  .pillar .num { font: 600 14px/1 var(--display); color: var(--teal); letter-spacing: .1em; }
+  .pillar h3 { font: 600 26px/1.1 var(--display); text-transform: uppercase; margin: 14px 0 8px; }
+  .pillar p { color: var(--muted); margin: 0; }
+
+  /* Menu */
+  #menu { background: var(--bg-2); border-block: 1px solid var(--line); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .filters button {
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 9px 16px; font: 500 13px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+  }
+  .filters button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .menu-grid { columns: 2; column-gap: 24px; }
+  .menu-card {
+    break-inside: avoid; margin-bottom: 24px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px;
+  }
+  .menu-card[hidden] { display: none; }
+  .menu-card h3 {
+    font: 600 22px/1 var(--display); text-transform: uppercase; letter-spacing: .03em;
+    margin: 0 0 18px; display: flex; align-items: center; gap: 10px;
+  }
+  .menu-card h3 svg { width: 20px; height: 20px; color: var(--teal); flex: none; }
+  .menu-card ul { list-style: none; margin: 0; padding: 0; }
+  .menu-card li { display: flex; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .menu-card li:first-child { border-top: 0; }
+  .menu-card .item { flex: 1; }
+  .menu-card .item small { display: block; color: var(--muted); font-size: 13px; }
+  .price { font: 500 18px/1 var(--display); color: var(--silver); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Ultimate */
+  .ultimate {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 0;
+    border: 1px solid #2f5a5d; border-radius: calc(var(--radius) + 6px); overflow: hidden;
+    background: radial-gradient(120% 140% at 0% 0%, #12312f 0%, #0d1416 55%, #0a0c0d 100%);
+  }
+  .ultimate-copy { padding: 48px; }
+  .ultimate-copy h2 { margin-bottom: 12px; }
+  .ultimate-copy > p { color: var(--silver); margin: 0 0 28px; }
+  .ultimate-list { list-style: none; padding: 0; margin: 0 0 28px; }
+  .ultimate-list li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px dashed #2c3a3e; color: var(--silver); }
+  .ultimate-list li span:last-child { color: var(--muted); text-decoration: line-through; font-variant-numeric: tabular-nums; }
+  .ultimate-price { display: flex; align-items: end; gap: 18px; flex-wrap: wrap; margin-bottom: 28px; }
+  .ultimate-price strong { font: 700 64px/.9 var(--display); }
+  .ultimate-price .save { background: var(--teal); color: #061213; font: 600 13px/1 var(--body); padding: 7px 12px; border-radius: 999px; letter-spacing: .04em; text-transform: uppercase; }
+  .ultimate-art { position: relative; min-height: 360px; display: grid; place-items: center; padding: 40px; }
+  .ultimate-art img { width: min(320px, 80%); border-radius: 50%; box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px #3a4448; }
+  .ultimate-art::before {
+    content: ""; position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,179,179,.25), transparent 65%);
+  }
+  .ultimate-art img { position: relative; }
+
+  /* Before / after */
+  .work { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .work-copy p { color: var(--muted); }
+  .work-copy blockquote {
+    margin: 28px 0 0; padding-left: 20px; border-left: 2px solid var(--teal);
+    font: 600 italic 22px/1.3 "Playfair Display", serif; color: var(--silver);
+  }
+  .compare {
+    position: relative; aspect-ratio: 790 / 1430; width: 100%; max-width: 380px; margin-inline: auto;
+    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+    user-select: none; touch-action: pan-y;
+    --pos: 50%;
+  }
+  .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .compare .after { clip-path: inset(0 0 0 var(--pos)); }
+  .compare .divider {
+    position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none;
+  }
+  .compare .handle {
+    position: absolute; top: 50%; left: var(--pos); transform: translate(-50%, -50%);
+    width: 46px; height: 46px; border-radius: 50%; background: #fff; color: #0a0c0d;
+    display: grid; place-items: center; box-shadow: 0 6px 20px rgba(0,0,0,.4); pointer-events: none;
+  }
+  .compare .tag {
+    position: absolute; top: 14px; padding: 6px 12px; border-radius: 999px;
+    background: rgba(10,12,13,.75); font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase;
+  }
+  .compare .tag.b { left: 14px; }
+  .compare .tag.a { right: 14px; background: var(--teal); color: #061213; }
+  .compare input[type="range"] {
+    position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+  }
+  .compare input[type="range"]:focus-visible ~ .handle { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+  /* Visit */
+  #visit { background: var(--bg-2); border-top: 1px solid var(--line); }
+  .visit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .visit-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .visit-card h3 { font: 600 20px/1 var(--display); text-transform: uppercase; margin: 0 0 14px; letter-spacing: .03em; }
+  .visit-card p, .visit-card dl { color: var(--muted); margin: 0 0 18px; }
+  .visit-card dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; }
+  .visit-card dt { color: var(--silver); }
+  .visit-card dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+  .tbc {
+    display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: #e8c98a; border: 1px dashed #8a7444; border-radius: 6px; padding: 2px 6px; margin-left: 6px; vertical-align: middle;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .pillars, .visit-grid, .hero-inner { grid-template-columns: 1fr; }
+    .hero-inner { gap: 24px; }
+    .hero { padding-top: 48px; }
+    .menu-grid { columns: 1; }
+    .ultimate, .work { grid-template-columns: 1fr; }
+    .ultimate-copy { padding: 32px 24px; }
+    .ultimate-art { min-height: 0; padding: 0 24px 40px; order: -1; padding-top: 40px; }
+    .ultimate-art img { width: 200px; }
+    .work { gap: 40px; }
+    section { padding: 72px 0; }
+  }
+  @media (max-width: 560px) {
+    .brand span { font-size: 17px; }
+    .hero p.lead { font-size: 16px; }
+    .menu-card { padding: 22px 18px; }
+    .ultimate-price strong { font-size: 52px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-strip">Concept website · a mock-up for Fades &amp; Blades De Drift, not the live site</div>
+
+<header>
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="#top"><img src="images/lion.png" alt=""><span>Fades &amp; Blades</span></a>
+    <ul class="nav-links">
+      <li><a href="#menu">Services</a></li>
+      <li><a href="#ultimate">The Ultimate</a></li>
+      <li><a href="#work">Our work</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#visit">Book a chair</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="banner"><img src="images/banner.jpg" alt="Fades and Blades: Dominance in the Detail"></div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="tagline">Dominance in the Detail</p>
+        <h1 id="hero-title">Precision fades. Sharp blades.</h1>
+      </div>
+      <div>
+      <p class="lead">Precision styling. Meticulous grooming. No shortcuts. A refined personal care experience built on skill, discipline and consistency, right here in De Drift.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#visit">Book your cut</a>
+        <a class="btn btn-ghost" href="#menu">See prices</a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="pillars-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The standard</p>
+        <h2 id="pillars-title">No shortcuts</h2>
+        <p>Every cut, shave and trim gets the same care, whether it's your first visit or your fiftieth.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="num">01</span>
+          <h3>Skill</h3>
+          <p>Clean skin fades, textured crops and classic scissor work, finished by hand with a straight razor.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">02</span>
+          <h3>Discipline</h3>
+          <p>Proper consultation before the clippers come out. We cut what suits you, not what's fastest.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">03</span>
+          <h3>Consistency</h3>
+          <p>The same sharp result every visit, so your fade looks as good in week three as it did on day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" aria-labelledby="menu-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Price list</p>
+        <h2 id="menu-title">Services</h2>
+        <p>Students, pensioners and kids 12 and under get reduced rates on haircuts.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter services">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="hair" aria-pressed="false">Hair</button>
+        <button type="button" data-filter="shave" aria-pressed="false">Shaves &amp; beards</button>
+        <button type="button" data-filter="colour" aria-pressed="false">Colour</button>
+        <button type="button" data-filter="refine" aria-pressed="false">Refining</button>
+      </div>
+
+      <div class="menu-grid">
+        <article class="menu-card" data-cat="hair">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg>Hair care &amp; styling</h3>
+          <ul>
+            <li><span class="item">Gents haircut</span><span class="price">R170</span></li>
+            <li><span class="item">Students haircut</span><span class="price">R150</span></li>
+            <li><span class="item">Pensioners haircut</span><span class="price">R130</span></li>
+            <li><span class="item">12 yrs &amp; under haircut</span><span class="price">R130</span></li>
+            <li><span class="item">Clipper cut</span><span class="price">R130</span></li>
+            <li><span class="item">Hair wash, conditioning &amp; head massage</span><span class="price">R60</span></li>
+          </ul>
+        </article>
+
+        <article class="menu-card" data-cat="shave">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 15 5l4 4L7 21H3z"/><path d="m13 7 4 4"/></svg>Shaves</h3>
+          <ul>
+            <li><span class="item">Face shave<small>Hot towel, straight razor</small></span><span class="price">R160</span></li>
+            <li><span class="item">Head shave</span><span class="price">R160</span></li>
+          </ul>
+        </article>
+
+        <article class="menu-card" data-cat="shave">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 9c0 7 3 11 7 11s7-4 7-11"/><path d="M9 14c1 .7 2 1 3 1s2-.3 3-1"/></svg>Beard care &amp; style</h3>
+          <ul>
+            <li><span class="item">Long beard trim &amp; shaping</span><span class="price">R100</span></li>
+            <li><span class="item">Short beard trim &amp; shaping</span><span class="price">R80</span></li>
+            <li><span class="item">Long beard tint</span><span class="price">R220</span></li>
+            <li><span class="item">Short beard tint</span><span class="price">R150</span></li>
+          </ul>
+        </article>
+
+        <article class="menu-card" data-cat="colour">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>Hair colour</h3>
+          <ul>
+            <li><span class="item">Full colour</span><span class="price">R220</span></li>
+            <li><span class="item">Sunkissed highlights</span><span class="price">R170</span></li>
+            <li><span class="item">Natural tint</span><span class="price">R220</span></li>
+            <li><span class="item">Salt &amp; pepper refinement</span><span class="price">R220</span></li>
+          </ul>
+        </article>
+
+        <article class="menu-card" data-cat="refine">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.2 5.6L20 9.3l-4.4 3.9L17 19l-5-3-5 3 1.4-5.8L4 9.3l5.8-.7z"/></svg>Refining treatments</h3>
+          <ul>
+            <li><span class="item">Nose waxing</span><span class="price">R50</span></li>
+            <li><span class="item">Ear waxing</span><span class="price">R50</span></li>
+            <li><span class="item">Nose &amp; ear waxing</span><span class="price">R90</span></li>
+            <li><span class="item">Full-facial wax</span><span class="price">R120</span></li>
+            <li><span class="item">Full-facial threading</span><span class="price">R200</span></li>
+            <li><span class="item">Eyebrow threading</span><span class="price">R110</span></li>
+            <li><span class="item">Eyebrow tinting</span><span class="price">R70</span></li>
+            <li><span class="item">Deep cleansing &amp; rejuvenating facial</span><span class="price">R275</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ultimate" aria-labelledby="ultimate-title">
+    <div class="wrap">
+      <div class="ultimate">
+        <div class="ultimate-copy">
+          <p class="eyebrow">Signature package</p>
+          <h2 id="ultimate-title">The Ultimate Grooming Experience</h2>
+          <p>The full treatment in one sitting. Walk in, switch off, walk out sharp.</p>
+          <ul class="ultimate-list">
+            <li><span>Haircut &amp; styling</span><span>R170</span></li>
+            <li><span>Hot towel shave</span><span>R160</span></li>
+            <li><span>Nose &amp; ear waxing</span><span>R90</span></li>
+            <li><span>Eyebrow threading</span><span>R110</span></li>
+            <li><span>Deep cleansing &amp; rejuvenating facial</span><span>R275</span></li>
+          </ul>
+          <div class="ultimate-price">
+            <strong>R700</strong>
+            <span class="save">Save R105</span>
+          </div>
+          <a class="btn btn-primary" href="#visit">Book the Ultimate</a>
+        </div>
+        <div class="ultimate-art">
+          <img src="images/lion.png" alt="Fades &amp; Blades lion emblem">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-title">
+    <div class="wrap work">
+      <div class="work-copy">
+        <p class="eyebrow">From the chair</p>
+        <h2 id="work-title">Before to fresh</h2>
+        <p>A grown-out side part, turned into a textured crop with a high skin fade and a crisp, hand-finished line-up.</p>
+        <p>Drag the slider to see the difference.</p>
+        <blockquote>“Precision styling. Meticulous grooming. No shortcuts.”</blockquote>
+      </div>
+      <div class="compare" id="compare">
+        <img src="images/before.jpg" alt="Client before: grown-out side-parted haircut">
+        <img class="after" src="images/after.jpg" alt="Client after: textured crop with a high skin fade">
+        <span class="tag b">Before</span>
+        <span class="tag a">After</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Before and after comparison">
+        <span class="divider"></span>
+        <span class="handle" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Visit</p>
+        <h2 id="visit-title">Take a seat</h2>
+        <p>Book ahead to skip the wait. Walk-ins are welcome when a chair is free.</p>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-card">
+          <h3>Book</h3>
+          <p>Send us a message with the service you want and a time that suits you. We'll confirm your slot.</p>
+          <a class="btn btn-primary btn-sm" href="#" aria-disabled="true">Message on Facebook</a>
+        </div>
+        <div class="visit-card">
+          <h3>Hours <span class="tbc">to confirm</span></h3>
+          <dl>
+            <dt>Mon – Fri</dt><dd>08:00 – 18:00</dd>
+            <dt>Saturday</dt><dd>08:00 – 14:00</dd>
+            <dt>Sunday</dt><dd>Closed</dd>
+          </dl>
+        </div>
+        <div class="visit-card">
+          <h3>Find us</h3>
+          <p>Fades &amp; Blades<br>De Drift <span class="tbc">street address</span></p>
+          <a class="btn btn-ghost btn-sm" href="#" aria-disabled="true">Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top"><img src="images/lion.png" alt=""><span>Fades &amp; Blades</span></a>
+    <span>Dominance in the Detail · De Drift</span>
+  </div>
+</footer>
+
+<script>
+  // Before/after slider
+  (function () {
+    var box = document.getElementById("compare");
+    var range = box.querySelector("input");
+    function set(v) { box.style.setProperty("--pos", v + "%"); }
+    range.addEventListener("input", function () { set(range.value); });
+    set(range.value);
+  })();
+
+  // Service filters
+  (function () {
+    var buttons = document.querySelectorAll(".filters button");
+    var cards = document.querySelectorAll(".menu-card");
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var f = btn.dataset.filter;
+        buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+        cards.forEach(function (c) { c.hidden = f !== "all" && c.dataset.cat !== f; });
+      });
+    });
+  })();
+
+  // Placeholder links in the mock
+  document.querySelectorAll('a[aria-disabled="true"]').forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); });
+  });
+</script>
+</body>
+</html>
